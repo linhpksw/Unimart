@@ -1,0 +1,34 @@
+version: '3'
+
+services:
+  unimart-app:
+    build: ../unimart
+    image: linhpksw/unimart:1.2
+    container_name: unimart-container
+    ports:
+      - "8082:8080" # Map the host port to the container port
+    depends_on:
+      - db
+    environment:
+      # Environment variables for database connectivity
+      - DB_HOST=db
+      - DB_PORT=3306
+      - DB_USER=linhpksw
+      - DB_PASSWORD=Bmcdc20@
+      - DB_NAME=unimartDB
+
+  db:
+    image: mysql
+    container_name: unimart-mysql
+    environment:
+      MYSQL_DATABASE: 'unimartDB'
+      MYSQL_USER: 'linhpksw'
+      MYSQL_PASSWORD: 'Bmcdc20@'
+      MYSQL_ROOT_PASSWORD: 'Bmcdc54@'
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+
+volumes:
+  mysql_data:
