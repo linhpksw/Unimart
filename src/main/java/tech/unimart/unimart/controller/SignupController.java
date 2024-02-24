@@ -10,25 +10,27 @@ import tech.unimart.unimart.service.UserService;
 
 import java.io.IOException;
 
-@WebServlet(name = "LoginController", urlPatterns = {"/login"})
-public class LoginController extends HttpServlet {
+@WebServlet(name = "SignupController", urlPatterns = {"/signup"})
+public class SignupController extends HttpServlet {
     private final UserService userService = new UserService();
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String credential = request.getParameter("credential");
-        // plaintext password
+        String id = request.getParameter("id");
         String password = request.getParameter("password");
-        String rememberMe = request.getParameter("rememberMe");
+        String email = request.getParameter("email");
 
-        boolean isLoginSuccess = userService.loginAndRememberUser(request, response, credential, password, rememberMe);
+        User user = new User(id, email, password);
+        System.out.println("User: " + user);
 
-        if (isLoginSuccess) {
-            response.sendRedirect(request.getContextPath() + "/");
+        String result = userService.createUser(user);
+
+        if (!"success".equals(result)) {
+            request.setAttribute("errorMessage", result);
+            request.getRequestDispatcher("signup.jsp").forward(request, response);
         } else {
-            request.setAttribute("errorMessage", "Invalid credentials");
-            request.getRequestDispatcher("login.jsp").forward(request, response);
+            response.sendRedirect(request.getContextPath() + "/login");
         }
     }
 
@@ -42,10 +44,8 @@ public class LoginController extends HttpServlet {
             // User is already logged in, redirect to home page
             response.sendRedirect(request.getContextPath() + "/");
         } else {
-            // No user session or remember me cookie found, show login page
-            request.getRequestDispatcher("login.jsp").forward(request, response);
+            // No user session or remember me cookie found, show signup page
+            request.getRequestDispatcher("signup.jsp").forward(request, response);
         }
     }
-
-
 }

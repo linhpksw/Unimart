@@ -1,25 +1,40 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: linhp
-  Date: 1/20/2024
-  Time: 10:23 PM
-  To change this template use File | Settings | File Templates.
---%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@page contentType="text/html" pageEncoding="UTF-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jstl/fmt" %>
+
+<c:set var="errorMessage" value="${requestScope.errorMessage}"/>
+<!DOCTYPE html>
 <html>
-<head>
-    <title>Title</title>
-</head>
-<body>
-<h1>Here is login page.</h1>
-<form action="" method="post">
-    <label>
-        <input type="text" name="username" placeholder="Username"/>
-    </label>
-    <label>
-        <input type="password" name="password" placeholder="Password"/>
-    </label>
-    <input type="submit" value="Login"/>
-</form>
-</body>
+    <head>
+        <title>Login</title>
+    </head>
+    <body>
+        <h1>Login Page</h1>
+        <form action="login" method="post">
+            <div>
+                <label for="credential">Username or Phone or Email:</label>
+                <input type="text" id="credential" name="credential" placeholder="Username or Phone or Email" required/>
+            </div>
+            <div>
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" placeholder="Password" required/>
+            </div>
+            <div>
+                <label for="rememberMe">Remember Me:</label>
+                <input type="checkbox" id="rememberMe" name="rememberMe"/>
+            </div>
+            <div>
+                <input type="submit" value="Login"/>
+            </div>
+            <div>
+                <a href="signup">Register</a>
+            </div>
+            <div>
+                <c:if test="${not empty errorMessage}">
+                    <p style="color: red">${errorMessage}</p>
+                </c:if>
+            </div>
+        </form>
+    </body>
 </html>

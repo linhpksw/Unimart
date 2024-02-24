@@ -10,8 +10,8 @@ import java.sql.Timestamp;
 import java.util.Date;
 
 public class RememberDAO extends DBContext {
-    public void createrememberToken(Remember token) {
-        String sql = "INSERT INTO remember (userId, token, expirationDate) VALUES (?, ?, ?)";
+    public void createRememberToken(Remember token) {
+        String sql = "INSERT INTO remembers (user_id, token, expiration_date) VALUES (?, ?, ?)";
         try (PreparedStatement ps = connection.prepareStatement(sql)) {
             ps.setString(1, token.getUserId());
             ps.setString(2, token.getToken());
@@ -23,15 +23,14 @@ public class RememberDAO extends DBContext {
     }
 
     public Remember findByToken(String token) {
-        String sql = "SELECT * FROM remember WHERE token = ?";
+        String sql = "SELECT * FROM remembers WHERE token = ?";
         Remember rememberToken = null;
         try (PreparedStatement ps = connection.prepareStatement(sql)) {
             ps.setString(1, token);
             try (ResultSet resultSet = ps.executeQuery()) {
-                if (resultSet.next() && resultSet.getTimestamp("expiration_date").after(new Date())) { // check whether the token's expiration date is after the current date (ensuring the token is not expired)
-
+                // If the token is found and not expired, return it
+                if (resultSet.next() && resultSet.getTimestamp("expiration_date").after(new Date())) {
                     rememberToken = new Remember();
-                    rememberToken.setTokenId(resultSet.getString("token_id"));
                     rememberToken.setUserId(resultSet.getString("user_id"));
                     rememberToken.setToken(resultSet.getString("token"));
                     rememberToken.setExpirationDate(resultSet.getTimestamp("expiration_date"));
@@ -39,12 +38,14 @@ public class RememberDAO extends DBContext {
             }
         } catch (SQLException e) {
             // Proper exception handling goes here
+            System.out.println(e);
         }
         return rememberToken;
     }
 
     public void invalidateTokensForUser(String userId) {
-        String sql = "UPDATE remember SET expiration_date = NOW() WHERE user_id = ? AND expiration_date > NOW()";
+        // This ensure that all devices are logged out when the user logs out from one device
+        String sql = "UPDATE remembers SET expiration_date = NOW() WHERE user_id = ? AND expiration_date > NOW()";
         try (PreparedStatement ps = connection.prepareStatement(sql)) {
             ps.setString(1, userId);
             ps.executeUpdate();
@@ -52,16 +53,5 @@ public class RememberDAO extends DBContext {
             System.out.println(e);
         }
     }
-
-    public void deleteToken(String token) {
-        String sql = "DELETE FROM remember WHERE token = ?";
-        try (PreparedStatement ps = connection.prepareStatement(sql)) {
-            ps.setString(1, token);
-            ps.executeUpdate();
-        } catch (SQLException e) {
-            System.out.println(e);
-        }
-    }
-
 
 }

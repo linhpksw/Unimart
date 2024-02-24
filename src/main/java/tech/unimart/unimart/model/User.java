@@ -16,6 +16,12 @@ public class User {
     public User() {
     }
 
+    public User(String id, String email, String password) {
+        this.id = id;
+        this.email = email;
+        this.password = password;
+    }
+
     public User(String id, String email, String phone, String password, String role, String name, String gender, String dob, boolean isBanned, String createdAt, String updatedAt) {
         this.id = id;
         this.email = email;
@@ -116,5 +122,15 @@ public class User {
 
     public void setUpdatedAt(String updatedAt) {
         this.updatedAt = updatedAt;
+    }
+
+    public String toString() {
+        return "User{" +
+                "id='" + id + '\'' +
+                ", email='" + email + '\'' +
+                ", phone='" + phone + '\'' +
+                ", password='" + password + '\'' +
+                ", role='" + role + '\'' +
+                ", name='" + name + '\'';
     }
 }
