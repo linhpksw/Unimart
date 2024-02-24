@@ -4,7 +4,7 @@ FROM openjdk:17-jdk-slim-buster
 # Install necessary tools
 RUN apt-get update && apt-get install -y curl
 
-# Install Tomcat 10.1.17
+# Install Tomcat 10.1.18
 # Define environment variables for Tomcat version and installation directory
 ENV TOMCAT_VERSION=10.1.18
 ENV CATALINA_HOME=/usr/local/tomcat
@@ -17,7 +17,7 @@ RUN mkdir -p "$CATALINA_HOME" \
 RUN rm -rf "$CATALINA_HOME"/webapps/*
 
 # Copy the WAR file into the Tomcat webapps directory
-COPY ../unimart%20-%20Copy/target/unimart-1.0-SNAPSHOT.war $CATALINA_HOME/webapps/ROOT.war
+COPY target/unimart-1.0-SNAPSHOT.war $CATALINA_HOME/webapps/ROOT.war
 
 # Expose port 8080 for the web application
 EXPOSE 8080

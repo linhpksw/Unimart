@@ -2,8 +2,8 @@ version: '3'
 
 services:
   unimart-app:
-    build: ../unimart
-    image: linhpksw/unimart:1.2
+    build: .
+    image: linhpksw/unimart:1.3
     container_name: unimart-container
     ports:
       - "8082:8080" # Map the host port to the container port
