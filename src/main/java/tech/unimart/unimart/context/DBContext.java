@@ -15,7 +15,8 @@ public class DBContext {
             Class.forName("com.mysql.cj.jdbc.Driver"); // MySQL JDBC Driver
             String user = "root"; // MySQL username
             String pass = "Bmcdc54@"; // MySQL password
-            String url = "jdbc:mysql://localhost:3306/unimartDB"; // MySQL URL and database name
+//            String url = "jdbc:mysql://localhost:3306/unimartDB"; // MySQL URL and database name
+            String url = "jdbc:mysql://db:3306/unimartDB"; // MySQL URL and database name for Docker
             connection = DriverManager.getConnection(url, user, pass);
 
         } catch (ClassNotFoundException | SQLException ex) {
