@@ -4,10 +4,13 @@ import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import tech.unimart.unimart.dao.ForgotDAO;
 import tech.unimart.unimart.dao.RememberDAO;
 import tech.unimart.unimart.dao.UserDAO;
+import tech.unimart.unimart.model.Forgot;
 import tech.unimart.unimart.model.Remember;
 import tech.unimart.unimart.model.User;
+import tech.unimart.unimart.utils.EmailUtil;
 import tech.unimart.unimart.utils.PasswordUtil;
 
 import java.io.IOException;
@@ -17,6 +20,8 @@ import java.util.UUID;
 public class UserService {
     private final UserDAO userDAO = new UserDAO();
     private final RememberDAO rememberDAO = new RememberDAO();
+
+    private final ForgotDAO forgotDAO = new ForgotDAO();
 
     public String createUser(User user) {
         // Check for duplicates
@@ -94,6 +99,59 @@ public class UserService {
         // Ensure this matches the path where the cookie was set
         rememberMeCookie.setPath(request.getContextPath() + "/");
         response.addCookie(rememberMeCookie);
+    }
+
+    public String initiatePasswordReset(String credential, HttpServletRequest request) {
+        User user = userDAO.findByCredential(credential);
+        String userId = user.getId();
+        String email = user.getEmail();
+
+        String token = UUID.randomUUID().toString();
+        String hashedToken = PasswordUtil.hashPassword(token);
+
+        forgotDAO.createPasswordChangeRequest(userId, hashedToken);
+
+        String baseUrl = request.getScheme() + "://" + request.getServerName();
+        if (request.getServerPort() != 80 && request.getServerPort() != 443) {
+            baseUrl += ":" + request.getServerPort();
+        }
+        baseUrl += request.getContextPath();
+
+        String resetLink = baseUrl + "/reset?token=" + token;
+
+        boolean emailSent = EmailUtil.sendPasswordResetEmail(email, resetLink);
+
+        return emailSent ? email + " sending success" : email + " sending failed";
+    }
+
+    public boolean validatePasswordResetToken(String token) {
+        // Logic to validate the token, including checking if it's expired
+        // This would involve querying the `forgots` table for the hashed token and comparing timestamps
+        // Return true if valid and not expired, false otherwise
+        Forgot forgotRequest = forgotDAO.getForgotRequestByToken(token);
+        if (forgotRequest != null) {
+            long timeElapsed = new Date().getTime() - forgotRequest.getTime().getTime();
+            long tenMinutesInMillis = 600000; // 10 minutes in milliseconds
+            // Token is valid if it's been less than 10 minutes
+            return timeElapsed < tenMinutesInMillis;
+        }
+        return false;
+    }
+
+    public boolean resetPassword(String token, String newPassword) {
+        // Get the user ID associated with the token
+        String userId = forgotDAO.getUserIdByToken(token);
+
+        // Hash the new password
+        String hashedPassword = PasswordUtil.hashPassword(newPassword);
+
+        // Update the user's password in the database
+        boolean passwordUpdated = userDAO.updateUserPassword(userId, hashedPassword);
+
+        // Invalidate the token after use
+        forgotDAO.invalidateToken(token);
+
+        return passwordUpdated;
     }
 
     private User authenticate(String credential, String password) {

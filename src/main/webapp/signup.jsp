@@ -7,7 +7,14 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="./static/css/tailwind.css"/>
+        <style>
+            <%@include file="./static/css/tailwind.css" %>
+        </style>
         <title>Signup</title>
+    
     </head>
     <body>
         <h2>Signup</h2>

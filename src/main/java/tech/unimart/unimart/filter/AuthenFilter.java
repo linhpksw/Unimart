@@ -68,7 +68,9 @@ public class AuthenFilter implements Filter {
 
         // No authentication required for these URLs
         return !requestURI.startsWith("/login")
+                && !requestURI.startsWith("/forgot")
                 && !requestURI.startsWith("/signup")
+                && !requestURI.startsWith("/static")
                 && !requestURI.startsWith("/css/")
                 && !requestURI.startsWith("/js/");
     }

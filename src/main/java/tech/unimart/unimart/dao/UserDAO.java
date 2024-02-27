@@ -34,21 +34,6 @@ public class UserDAO extends DBContext {
         return user;
     }
 
-    public boolean userIdExists(String userId) {
-        String sql = "SELECT COUNT(*) FROM users WHERE id = ?";
-        try (PreparedStatement ps = connection.prepareStatement(sql)) {
-            ps.setString(1, userId);
-            try (ResultSet resultSet = ps.executeQuery()) {
-                if (resultSet.next()) {
-                    return resultSet.getInt(1) > 0; // true if count > 0
-                }
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return false;
-    }
-
     public String checkUserExists(String id, String email, String phone) {
         String sql = "SELECT 'id' FROM users WHERE id = ? " +
                 "UNION SELECT 'email' FROM users WHERE email = ? " +
@@ -86,6 +71,19 @@ public class UserDAO extends DBContext {
             // Make sure this is in the correct format
             ps.setString(8, user.getDob());
 
+            int affectedRows = ps.executeUpdate();
+            return affectedRows > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public boolean updateUserPassword(String userId, String hashedPassword) {
+        String sql = "UPDATE users SET password = ? WHERE id = ?";
+        try (PreparedStatement ps = connection.prepareStatement(sql)) {
+            ps.setString(1, hashedPassword);
+            ps.setString(2, userId);
             int affectedRows = ps.executeUpdate();
             return affectedRows > 0;
         } catch (SQLException e) {

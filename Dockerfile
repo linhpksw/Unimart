@@ -6,7 +6,7 @@ RUN apt-get update && apt-get install -y curl
 
 # Install Tomcat 10.1.18
 # Define environment variables for Tomcat version and installation directory
-ENV TOMCAT_VERSION=10.1.18
+ENV TOMCAT_VERSION=10.1.19
 ENV CATALINA_HOME=/usr/local/tomcat
 
 # Download and install Tomcat to the CATALINA_HOME directory
