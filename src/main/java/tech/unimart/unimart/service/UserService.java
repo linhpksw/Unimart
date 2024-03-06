@@ -42,6 +42,31 @@ public class UserService {
         return "success";
     }
 
+    public String updateUser(HttpServletRequest request, User user) {
+        // First, check if updating to the new email or phone would cause duplication
+        String duplicateField = userDAO.checkUserExistsExcludingId(user.getId(), user.getEmail(), user.getPhone());
+
+        if (duplicateField != null) {
+            return duplicateField + " already exists";
+        }
+
+        // Attempt to update the user
+        boolean updated = userDAO.updateUser(user);
+        if (!updated) {
+            return "Failed to update user";
+        }
+
+        // Update the user object in the session
+        // Get the current session without creating a new one
+        HttpSession session = request.getSession(false);
+        if (session != null) {
+            // Update the user object in the session
+            session.setAttribute("user", user);
+        }
+
+        return "success";
+    }
+
     public User checkAndAuthenticateUser(HttpServletRequest request, HttpServletResponse response) throws IOException {
         HttpSession session = request.getSession(false);
         User user = (session != null) ? (User) session.getAttribute("user") : null;
@@ -57,7 +82,6 @@ public class UserService {
                 return user;
             }
         }
-
         return user; // Return null if no user is authenticated
     }
 
@@ -66,7 +90,8 @@ public class UserService {
 
         if (user != null) {
             HttpSession session = request.getSession();
-            session.setAttribute("user", user); // Store user in session
+            // Store user in session
+            session.setAttribute("user", user);
 
             if ("on".equals(rememberMe)) {
                 String token = createAndStoreRememberToken(user);
@@ -99,6 +124,11 @@ public class UserService {
         // Ensure this matches the path where the cookie was set
         rememberMeCookie.setPath(request.getContextPath() + "/");
         response.addCookie(rememberMeCookie);
+    }
+
+    public User getUserFromSession(HttpServletRequest request) {
+        HttpSession session = request.getSession(false);
+        return (session != null) ? (User) session.getAttribute("user") : null;
     }
 
     public String initiatePasswordReset(String credential, HttpServletRequest request) {

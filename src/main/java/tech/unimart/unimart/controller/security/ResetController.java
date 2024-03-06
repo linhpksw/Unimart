@@ -1,4 +1,4 @@
-package tech.unimart.unimart.controller;
+package tech.unimart.unimart.controller.security;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -22,10 +22,10 @@ public class ResetController extends HttpServlet {
 
         if (tokenValid) {
             request.setAttribute("token", token);
-            request.getRequestDispatcher("/reset-password.jsp").forward(request, response);
+            request.getRequestDispatcher("/security/reset-password.jsp").forward(request, response);
         } else {
             // Handle invalid or expired token
-            response.sendRedirect(request.getContextPath() + "/invalid-token.jsp");
+            response.sendRedirect(request.getContextPath() + "/security/invalid-token.jsp");
         }
     }
 
@@ -42,7 +42,7 @@ public class ResetController extends HttpServlet {
         } else {
             // Handle password reset failure
             request.setAttribute("errorMessage", "Failed to reset password");
-            request.getRequestDispatcher("/reset-password.jsp").forward(request, response);
+            request.getRequestDispatcher("/security/reset-password.jsp").forward(request, response);
         }
     }
 }

@@ -1,7 +1,6 @@
 package tech.unimart.unimart.filter;
 
 import jakarta.servlet.*;
-import jakarta.servlet.annotation.WebFilter;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import tech.unimart.unimart.model.User;
@@ -12,10 +11,9 @@ import java.io.PrintStream;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 
-@WebFilter(filterName = "AuthenFilter", urlPatterns = {"/*"})
+//@WebFilter(filterName = "AuthenFilter", urlPatterns = {"/*"})
 
 public class AuthenFilter implements Filter {
-
     private static final boolean debug = true;
     private final UserService userService = new UserService();
     private FilterConfig filterConfig = null;

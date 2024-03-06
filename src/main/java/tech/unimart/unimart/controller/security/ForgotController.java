@@ -1,4 +1,4 @@
-package tech.unimart.unimart.controller;
+package tech.unimart.unimart.controller.security;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -16,7 +16,7 @@ public class ForgotController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        request.getRequestDispatcher("forgot.jsp").forward(request, response);
+        request.getRequestDispatcher("/security/forgot.jsp").forward(request, response);
     }
 
     @Override
@@ -29,12 +29,12 @@ public class ForgotController extends HttpServlet {
         if ("success".contains(resetStatus)) {
             // If the reset email was successfully sent, redirect to a confirmation page
             request.setAttribute("status", resetStatus);
-            request.getRequestDispatcher(request.getContextPath() + "/reset-confirm.jsp").forward(request, response);
+            request.getRequestDispatcher(request.getContextPath() + "/security/reset-confirm.jsp").forward(request, response);
 
         } else {
             // If there was an error (e.g., the credential does not exist), show the forgot form again with an error message
             request.setAttribute("errorMessage", resetStatus);
-            request.getRequestDispatcher("/forgot.jsp").forward(request, response);
+            request.getRequestDispatcher("/security/forgot.jsp").forward(request, response);
         }
     }
 }

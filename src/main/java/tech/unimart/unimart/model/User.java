@@ -2,6 +2,7 @@ package tech.unimart.unimart.model;
 
 public class User {
     private String id;
+    private String about;
     private String email;
     private String phone;
     private String password;
@@ -9,6 +10,7 @@ public class User {
     private String name;
     private String gender;
     private String dob;
+    private String address;
     private boolean isBanned;
     private String createdAt;
     private String updatedAt;
@@ -22,19 +24,19 @@ public class User {
         this.password = password;
     }
 
-    public User(String id, String email, String phone, String password, String role, String name, String gender, String dob, boolean isBanned, String createdAt, String updatedAt) {
+
+    public User(String id, String about, String email, String phone, String role, String name, String gender, String dob, String address) {
         this.id = id;
+        this.about = about;
         this.email = email;
         this.phone = phone;
-        this.password = password;
         this.role = role;
         this.name = name;
         this.gender = gender;
         this.dob = dob;
-        this.isBanned = isBanned;
-        this.createdAt = createdAt;
-        this.updatedAt = updatedAt;
+        this.address = address;
     }
+
 
     public String getId() {
         return id;
@@ -42,6 +44,14 @@ public class User {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public String getAbout() {
+        return about;
+    }
+
+    public void setAbout(String about) {
+        this.about = about;
     }
 
     public String getEmail() {
@@ -58,6 +68,14 @@ public class User {
 
     public void setPhone(String phone) {
         this.phone = phone;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
     }
 
     public String getPassword() {
@@ -124,13 +142,23 @@ public class User {
         this.updatedAt = updatedAt;
     }
 
+    @Override
     public String toString() {
         return "User{" +
                 "id='" + id + '\'' +
+                ", about='" + about + '\'' +
                 ", email='" + email + '\'' +
                 ", phone='" + phone + '\'' +
                 ", password='" + password + '\'' +
                 ", role='" + role + '\'' +
-                ", name='" + name + '\'';
+                ", name='" + name + '\'' +
+                ", gender='" + gender + '\'' +
+                ", dob='" + dob + '\'' +
+                ", address='" + address + '\'' +
+                ", isBanned=" + isBanned +
+                ", createdAt='" + createdAt + '\'' +
+                ", updatedAt='" + updatedAt + '\'' +
+                '}';
     }
+
 }

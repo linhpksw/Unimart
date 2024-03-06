@@ -1,6 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-    content: ['./src/main/webapp/**/*.jsp'],
+    content: ['./src/main/webapp/**/*.jsp', "./src/main/webapp/**/*.js"],
     theme: {
         extend: {},
     },
@@ -8,5 +8,6 @@ module.exports = {
         // ...
         require('@tailwindcss/forms'),
         require('@tailwindcss/aspect-ratio'),
+        require('@tailwindcss/typography'),
     ],
 }

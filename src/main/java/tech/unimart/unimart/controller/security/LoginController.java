@@ -1,4 +1,4 @@
-package tech.unimart.unimart.controller;
+package tech.unimart.unimart.controller.security;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -10,27 +10,24 @@ import tech.unimart.unimart.service.UserService;
 
 import java.io.IOException;
 
-@WebServlet(name = "SignupController", urlPatterns = {"/signup"})
-public class SignupController extends HttpServlet {
+@WebServlet(name = "LoginController", urlPatterns = {"/login"})
+public class LoginController extends HttpServlet {
     private final UserService userService = new UserService();
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String id = request.getParameter("id");
+        String credential = request.getParameter("credential");
         String password = request.getParameter("password");
-        String email = request.getParameter("email");
+        String rememberMe = request.getParameter("rememberMe");
 
-        User user = new User(id, email, password);
-        System.out.println("User: " + user);
+        boolean isLoginSuccess = userService.loginAndRememberUser(request, response, credential, password, rememberMe);
 
-        String result = userService.createUser(user);
-
-        if (!"success".equals(result)) {
-            request.setAttribute("errorMessage", result);
-            request.getRequestDispatcher("signup.jsp").forward(request, response);
+        if (isLoginSuccess) {
+            response.sendRedirect(request.getContextPath() + "/");
         } else {
-            response.sendRedirect(request.getContextPath() + "/login");
+            request.setAttribute("errorMessage", "Invalid credentials");
+            request.getRequestDispatcher("/security/login.jsp").forward(request, response);
         }
     }
 
@@ -44,8 +41,10 @@ public class SignupController extends HttpServlet {
             // User is already logged in, redirect to home page
             response.sendRedirect(request.getContextPath() + "/");
         } else {
-            // No user session or remember me cookie found, show signup page
-            request.getRequestDispatcher("signup.jsp").forward(request, response);
+            // No user session or remember me cookie found, show login page
+            request.getRequestDispatcher("/security/login.jsp").forward(request, response);
         }
     }
+
+
 }

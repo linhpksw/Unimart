@@ -1,4 +1,4 @@
-package tech.unimart.unimart.controller;
+package tech.unimart.unimart.controller.security;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;

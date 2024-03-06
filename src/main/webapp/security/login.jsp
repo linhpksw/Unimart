@@ -3,17 +3,17 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jstl/fmt" %>
 
-<c:set var="errorMessage" value="${requestScope.errorMessage}"/>
 <!DOCTYPE html>
 <html>
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="./static/css/tailwind.css"/>
+        <link rel="stylesheet" href="../static/css/tailwind.css"/>
         <style>
-            <%@include file="./static/css/tailwind.css" %>
+            <%@include file="../static/css/tailwind.css" %>
         </style>
         <title>Login</title>
+        <jsp:include page="../components/alert.jsp"/>
     </head>
     <body class="h-full">
         <div class="flex min-h-full">

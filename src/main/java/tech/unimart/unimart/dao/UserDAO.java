@@ -4,6 +4,7 @@ import tech.unimart.unimart.context.DBContext;
 import tech.unimart.unimart.model.User;
 import tech.unimart.unimart.utils.PasswordUtil;
 
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -21,11 +22,19 @@ public class UserDAO extends DBContext {
                 if (resultSet.next()) {
                     user = new User();
                     user.setId(resultSet.getString("id"));
-                    user.setName(resultSet.getString("name"));
+                    user.setAbout(resultSet.getString("about"));
                     user.setEmail(resultSet.getString("email"));
                     user.setPhone(resultSet.getString("phone"));
-                    user.setPassword(resultSet.getString("password")); // Assuming password is hashed
-                    // ... set other fields
+                    // Assuming password is hashed
+                    user.setPassword(resultSet.getString("password"));
+                    user.setRole(resultSet.getString("role"));
+                    user.setName(resultSet.getString("name"));
+                    user.setGender(resultSet.getString("gender"));
+                    user.setDob(resultSet.getString("dob"));
+                    user.setAddress(resultSet.getString("address"));
+                    user.setBanned(resultSet.getBoolean("is_banned"));
+                    user.setCreatedAt(resultSet.getString("created_at"));
+                    user.setUpdatedAt(resultSet.getString("updated_at"));
                 }
             }
         } catch (SQLException e) {
@@ -65,7 +74,7 @@ public class UserDAO extends DBContext {
             // Hash the password
             ps.setString(4, PasswordUtil.hashPassword(user.getPassword()));
             // Set the role default to "C" for customer
-            ps.setString(5, "C");
+            ps.setString(5, "customer");
             ps.setString(6, user.getName());
             ps.setString(7, user.getGender());
             // Make sure this is in the correct format
@@ -77,6 +86,52 @@ public class UserDAO extends DBContext {
             e.printStackTrace();
             return false;
         }
+    }
+
+    public boolean updateUser(User user) {
+        String sql = "UPDATE users " +
+                "SET email = ?, phone = ?, role = ?, name = ?, " +
+                "gender = ?, dob = ?, address = ?, about = ? WHERE id = ?";
+        try (PreparedStatement ps = connection.prepareStatement(sql)) {
+            ps.setString(1, user.getEmail());
+            ps.setString(2, user.getPhone());
+            ps.setString(3, user.getRole());
+            ps.setString(4, user.getName());
+            ps.setString(5, user.getGender());
+            // Assuming dob is stored in a format compatible with SQL DATE (yyyy-[m]m-[d]d)
+            // If dob is a String, ensure it's in the correct format or convert accordingly
+            ps.setDate(6, Date.valueOf(user.getDob()));
+            ps.setString(7, user.getAddress());
+            ps.setString(8, user.getAbout());
+            ps.setString(9, user.getId());
+
+            int affectedRows = ps.executeUpdate();
+            return affectedRows > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+
+    public String checkUserExistsExcludingId(String id, String email, String phone) {
+        String sql = "SELECT 'email' FROM users WHERE email = ? AND id != ? " +
+                "UNION SELECT 'phone' FROM users WHERE phone = ? AND id != ?";
+        try (PreparedStatement ps = connection.prepareStatement(sql)) {
+            ps.setString(1, email);
+            ps.setString(2, id);
+            ps.setString(3, phone);
+            ps.setString(4, id);
+            try (ResultSet resultSet = ps.executeQuery()) {
+                if (resultSet.next()) {
+                    // Returns 'email' or 'phone' if a duplicate exists
+                    return resultSet.getString(1);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null; // No duplicates found
     }
 
     public boolean updateUserPassword(String userId, String hashedPassword) {

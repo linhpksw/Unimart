@@ -18,9 +18,9 @@ public class DBContext {
             // MySQL password
             String pass = "Bmcdc54@";
             // For connecting to the database on the local machine
-//            String url = "jdbc:mysql://localhost:3306/unimartDB";
+            String url = "jdbc:mysql://localhost:3306/unimartDB";
             // For connecting to the database on the docker container
-            String url = "jdbc:mysql://db:3306/unimartDB";
+//            String url = "jdbc:mysql://db:3306/unimartDB";
 
             connection = DriverManager.getConnection(url, user, pass);
 

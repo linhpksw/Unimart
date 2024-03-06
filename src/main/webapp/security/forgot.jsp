@@ -7,9 +7,9 @@
 <html>
     <head>
         <title>Forgot Password</title>
-        <link rel="stylesheet" href="./static/css/tailwind.css"/>
+        <link rel="stylesheet" href="../static/css/tailwind.css"/>
         <style>
-            <%@include file="./static/css/tailwind.css" %>
+            <%@include file="../static/css/tailwind.css" %>
         </style>
     </head>
     <body>
