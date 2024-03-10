@@ -15,6 +15,7 @@ import tech.unimart.unimart.utils.PasswordUtil;
 
 import java.io.IOException;
 import java.util.Date;
+import java.util.List;
 import java.util.UUID;
 
 public class UserService {
@@ -23,6 +24,24 @@ public class UserService {
 
     private final ForgotDAO forgotDAO = new ForgotDAO();
 
+    public String deleteUserById(String userId) {
+        try {
+            boolean deleted = userDAO.deleteUser(userId);
+            if (deleted) {
+                return "success";
+            } else {
+                return "Failed to delete user";
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "Failed to delete user: " + e.getMessage();
+        }
+    }
+
+    public List<User> findAllUsers() {
+        return userDAO.findAllUsers();
+    }
+
     public String createUser(User user) {
         // Check for duplicates
         String id = user.getId();
@@ -30,13 +49,13 @@ public class UserService {
         String phone = user.getPhone();
         String exists = userDAO.checkUserExists(id, email, phone);
         if (exists != null) {
-            return exists + " exists";
+            return exists + " already exists.";
         }
 
         // Attempt to create the user
         boolean created = userDAO.createUser(user);
         if (!created) {
-            return "Failed to create user";
+            return "Failed to create user account";
         }
 
         return "success";

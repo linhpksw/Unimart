@@ -4,11 +4,14 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jstl/fmt" %>
 
 <c:set var="contextPath" value="${pageContext.request.contextPath}"/>
+<c:set var="imageSrc" value="${contextPath}/static/images/products"/>
+
 <c:set var="productDetail" value="${requestScope.productDetail}"/>
 <c:set var="product" value="${productDetail.product}"/>
-<c:set var="productItems" value="${productDetail.productItems}"/>
-<c:set var="attributesMap" value="${requestScope.attributesMap}"/>
-<c:set var="imageSrc" value="${contextPath}/static/images/products"/>
+
+<c:set var="productDetailJson" value="${requestScope.productDetailJson}"/>
+<c:set var="productItemsJson" value="${requestScope.productItemsJson}"/>
+
 
 <!DOCTYPE html>
 <html>
@@ -19,7 +22,7 @@
         <title>Product</title>
     </head>
     <body>
-        <!-- Hero section -->
+        <jsp:include page="/components/alert.jsp"/>
         <jsp:include page="/components/header.jsp"/>
         
         <main class="mx-auto w-full px-8 pt-36 pb-24">
@@ -27,15 +30,11 @@
             <div class="grid grid-cols-5 gap-x-8">
                 <!-- Image gallery -->
                 <div class="col-span-2 flex gap-x-6">
-                    <div class="">
-                        <!-- Tab panel, show/hide based on tab state. -->
-                        <div id="tabs-2-panel-1" aria-labelledby="tabs-2-tab-1" role="tabpanel" tabindex="0">
-                            <img src="${imageSrc}/${product.images[0]}"
-                                 alt="Angled front view with bag zipped and handles upright."
-                                 class="h-full w-full object-cover object-center rounded-lg">
-                        </div>
-                        
-                        <!-- More images... -->
+                    <!-- Tab panel, show/hide based on tab state. -->
+                    <div class="w-[320%] h-[27rem]" id="tabs-2-panel-1" aria-labelledby="tabs-2-tab-1" role="tabpanel"
+                         tabindex="0">
+                        <img src="${imageSrc}/${product.images[0]}"
+                             class="h-full w-full object-cover object-center rounded-lg" alt="">
                     </div>
                     
                     <!-- Image selector -->
@@ -45,7 +44,6 @@
                                 <button id="tabs-2-tab-1"
                                         class="relative flex h-24 cursor-pointer items-center justify-center rounded-md bg-white text-sm font-medium uppercase text-gray-900 hover:bg-gray-50 focus:outline-none focus:ring focus:ring-opacity-50 focus:ring-offset-4"
                                         aria-controls="tabs-2-panel-1" role="tab" type="button">
-                                    <span class="sr-only"> Angled view </span>
                                     <span class="absolute inset-0 overflow-hidden rounded-md">
                   <img src="${imageSrc}/${image}" alt=""
                        class="h-full w-full object-cover object-center"></span>
@@ -60,16 +58,18 @@
                 </div>
                 
                 <!-- Product info -->
-                <div class="col-span-3 px-4 mt-0">
-                    <h1 class="text-2xl font-bold tracking-tight text-gray-900">${product.name}</h1>
+                <form action="${contextPath}/product" id="product-info-container" method="post"
+                      class="col-span-3 px-4 mt-0">
+                    <h1 id="product-name" class="text-2xl font-bold tracking-tight text-gray-900">${product.name}</h1>
                     
-                    <%-- Price --%>
-                    <div class="mt-3">
-                        <p class="text-xl tracking-tight text-gray-900">${product.price}</p>
-                    </div>
+                    <input type="hidden" name="productId" value="${product.id}">
+                    <input type="hidden" name="name" value="${product.name}">
+                    <input type="hidden" name="storeId" value="${product.storeId}">
+                    <input type="hidden" name="imageName" value="${product.images[0]}">
+                    <input type="hidden" id="product-item-id" name="productItemId" value="">
                     
                     <!-- Stars -->
-                    <div class="mt-3">
+                    <div class="mt-1">
                         <div class="flex items-center">
                             <div class="flex items-center">
                                 <!--
@@ -91,46 +91,36 @@
                         </div>
                     </div>
                     
-                    <%-- Classification --%>
-                    <form class="mt-6">
-                        <!-- Sizes -->
-                        <c:forEach var="entry" items="${attributesMap}">
-                            <div>
-                                <fieldset>
-                                    <legend class="text-gray-900 font-semibold">Choose ${entry.key}</legend>
-                                    <div class="grid grid-cols-5 gap-4 mt-3">
-                                        <c:forEach var="value" items="${entry.value}" varStatus="status">
-                                            <!-- Active: "ring-2 ring-indigo-500" -->
-                                            <label class="col-span-1 group relative border rounded-md py-3 px-4 flex items-center justify-center text-sm font-medium uppercase hover:bg-gray-50 focus:outline-none bg-white shadow-sm text-gray-900 cursor-pointer">
-                                                <input type="radio" name="${entry.key}-choice" value="${value}"
-                                                       class="sr-only"
-                                                       aria-labelledby="${entry.key}-choice-${status.index}-label">
-                                                <span id="${entry.key}-choice-${status.index}-label">${value}</span>
-                                                <!--
-                                             Active: "border", Not Active: "border-2"
-                                             Checked: "border-indigo-500", Not Checked: "border-transparent"
-                                           -->
-                                                <span class="pointer-events-none absolute -inset-px rounded-md"
-                                                      aria-hidden="true"></span>
-                                            </label>
-                                        </c:forEach>
-                                    </div>
-                                </fieldset>
-                            </div>
-                        </c:forEach>
+                    <!-- Price Range -->
+                    <div class="mt-5">
+                        <p id="price-range" class="text-2xl tracking-tight text-gray-800"></p>
+                    </div>
+                    
+                    <!-- Options -->
+                    <div id="options-container"></div>
+                    
+                    <!-- Total Stock -->
+                    <div class="mt-6 flex items-center gap-4">
+                        <label for="quantity"
+                               class="block w-max font-medium leading-6 text-gray-600">Quantity</label>
+                        <input type="number" name="quantity" id="quantity" required
+                               class="block w-18 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600">
                         
-                        <div class="flex gap-6 items-center">
-                            <button type="submit"
-                                    class="mt-10 flex w-max items-center justify-center rounded-md border border-transparent bg-indigo-600 py-3 px-8 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
-                                Buy now
-                            </button>
-                            <button type="submit"
-                                    class="mt-10 flex w-max items-center justify-center rounded-md border border-transparent bg-indigo-600 py-3 px-8 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
-                                Add to cart
-                            </button>
-                        </div>
-                    </form>
-                </div>
+                        <p id="total-stock" class="block font-medium leading-6 tracking-tight text-gray-600">Total
+                            stock: ${totalStock}</p>
+                    </div>
+                    
+                    <div class="flex gap-6 items-center">
+                        <button type="submit" name="action" value="buyNow"
+                                class="mt-10 flex w-max items-center justify-center rounded-md border border-transparent bg-indigo-600 py-3 px-8 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
+                            Buy now
+                        </button>
+                        <button type="submit" name="action" value="addToCart"
+                                class="mt-10 flex w-max items-center justify-center rounded-md border border-transparent bg-indigo-600 py-3 px-8 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
+                            Add to cart
+                        </button>
+                    </div>
+                </form>
             </div>
             
             <!-- Description and details -->
@@ -148,8 +138,9 @@
         <%@ include file="/components/footer.jsp" %>
         
         <script>
-            const contextPath = '<%= request.getContextPath() %>';
+            const productDetailJson = JSON.parse('${productDetailJson}');
+            const productItemsJson = JSON.parse('${productItemsJson}');
         </script>
-        <%--        <script src="${contextPath}/static/js/category.js"></script>--%>
+        <script src="${contextPath}/static/js/product.js"></script>
     </body>
 </html>

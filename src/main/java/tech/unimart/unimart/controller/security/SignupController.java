@@ -20,8 +20,8 @@ public class SignupController extends HttpServlet {
         String id = request.getParameter("id");
         String password = request.getParameter("password");
         String email = request.getParameter("email");
-
-        User user = new User(id, email, password);
+        String phone = request.getParameter("phone");
+        User user = new User(id, email, password, phone);
 
         String result = userService.createUser(user);
 
@@ -29,6 +29,7 @@ public class SignupController extends HttpServlet {
             request.setAttribute("errorMessage", result);
             request.getRequestDispatcher("/security/signup.jsp").forward(request, response);
         } else {
+            request.setAttribute("successMessage", "Account created successfully. Please login.");
             response.sendRedirect(request.getContextPath() + "/login");
         }
     }

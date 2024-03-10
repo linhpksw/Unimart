@@ -3,6 +3,8 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jstl/fmt" %>
 
+<c:set var="contextPath" value="${pageContext.request.contextPath}"/>
+
 <div class="fixed z-50 bg-purple-600 w-full">
     <!-- Navigation -->
     <header class="relative z-10">
@@ -13,9 +15,9 @@
                     <!-- Language selector -->
                     <form>
                         <div>
-                            <label for="desktop-currency" class="sr-only">Currency</label>
+                            <label for="language" class="sr-only">Language</label>
                             <div class="group relative -ml-2 rounded-md border-transparent bg-gray-900 focus-within:ring-2 focus-within:ring-white">
-                                <select id="desktop-currency" name="currency"
+                                <select id="language" name="language"
                                         class="flex items-center rounded-md border-transparent bg-gray-900 bg-none py-0.5 pl-2 pr-5 text-sm font-medium text-white focus:border-transparent focus:outline-none focus:ring-0 group-hover:text-gray-100">
                                     <option>English</option>
                                     <option>Tiếng Việt</option>
@@ -37,8 +39,18 @@
                         <c:choose>
                             <c:when test="${not empty sessionScope.user}">
                                 <!-- User is logged in -->
-                                <a href="${pageContext.request.contextPath}/user/profile"
-                                   class="text-sm font-medium text-white hover:text-gray-100">Hello, ${sessionScope.user.id}</a>
+                                <div class="group relative">
+                                    <span class="text-sm font-medium text-white">Hello, ${sessionScope.user.id}</span>
+                                    <!-- Profile dropdown -->
+                                    <div class="hidden group-hover:block absolute right-0 z-10 w-36 origin-top-right bg-white shadow-lg ring-1 ring-black ring-opacity-5 opacity-0 group-hover:opacity-100 transition-opacity duration-200 ease-in-out">
+                                        <a href="${pageContext.request.contextPath}/user/profile"
+                                           class="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100">My
+                                            Profile</a>
+                                        <a href="${pageContext.request.contextPath}/user/history"
+                                           class="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100">My
+                                            purchase</a>
+                                    </div>
+                                </div>
                                 <a href="${pageContext.request.contextPath}/logout"
                                    class="text-sm font-medium text-white hover:text-gray-100">Logout</a>
                             </c:when>
@@ -63,33 +75,23 @@
                     <div>
                         <div class="flex h-16 items-center justify-between">
                             <!-- Logo (lg+) -->
-                            <div class="hidden lg:flex lg:flex-1 lg:items-center">
+                            <div class="flex flex-1 items-center">
                                 <a href="${pageContext.request.contextPath}/">
-                                    <span class="sr-only">Your Company</span>
+                                    <span class="sr-only">Unimart</span>
                                     <img class="h-8 w-auto"
                                          src="https://tailwindui.com/img/logos/mark.svg?color=white" alt="">
                                 </a>
                             </div>
                             
                             <div>
-                                <form class="w-96 mx-auto">
-                                    <label for="default-search"
-                                           class="mb-2 font-medium text-gray-900 sr-only ">Search</label>
-                                    <div class="relative">
-                                        <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
-                                            <svg class="w-4 h-4 text-gray-500 "
-                                                 aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-                                                 fill="none" viewBox="0 0 20 20">
-                                                <path stroke="currentColor" stroke-linecap="round"
-                                                      stroke-linejoin="round" stroke-width="2"
-                                                      d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"></path>
-                                            </svg>
-                                        </div>
-                                        <input type="search" id="default-search"
-                                               class="block w-full px-4 py-3 ps-10 text-sm text-white rounded-lg focus:ring-blue-500 focus:border-blue-500 "
-                                               placeholder="Search Mockups, Logos..." required/>
+                                <form class="flex w-96">
+                                    <label for="search" class="sr-only">Search</label>
+                                    <input id="search" type="text" autocomplete="search" required
+                                           placeholder="Search Mockups, Logos..."
+                                           class="w-full min-w-0 appearance-none rounded-md bg-white py-2 px-4 text-base text-gray-900 placeholder-gray-500 shadow-sm  ">
+                                    <div class="ml-4 flex-shrink-0">
                                         <button type="submit"
-                                                class="text-white absolute end-2.5 bottom-1.5 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 ">
+                                                class="flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-base font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none">
                                             Search
                                         </button>
                                     </div>
@@ -98,13 +100,13 @@
                             
                             <div class="flex flex-1 items-center justify-end">
                                 <div class="flex items-center lg:ml-8">
-                                    <!-- Help -->
-                                    <a href="#"
-                                       class="text-sm font-medium text-white block">Help</a>
+                                    <!-- Dashboard -->
+                                    <a href="${contextPath}/user/profile"
+                                       class="text-sm font-medium text-white block">Dashboard</a>
                                     
                                     <!-- Cart -->
-                                    <div class="ml-4 flow-root lg:ml-8">
-                                        <a href="#" class="group -m-2 flex items-center p-2">
+                                    <div class="flow-root ml-8">
+                                        <a href="${contextPath}/cart" class="group -m-2 flex items-center p-2">
                                             <!-- Heroicon name: outline/shopping-bag -->
                                             <svg class="h-6 w-6 flex-shrink-0 text-white"
                                                  xmlns="http://www.w3.org/2000/svg" fill="none"

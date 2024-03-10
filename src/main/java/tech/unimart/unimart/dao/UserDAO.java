@@ -8,8 +8,51 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class UserDAO extends DBContext {
+
+    public boolean deleteUser(String userId) {
+        String sql = "DELETE FROM users WHERE id = ?";
+        try (PreparedStatement ps = connection.prepareStatement(sql)) {
+            ps.setString(1, userId);
+            int affectedRows = ps.executeUpdate();
+            return affectedRows > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public List<User> findAllUsers() {
+        List<User> users = new ArrayList<>();
+        String sql = "SELECT * FROM users";
+        try (PreparedStatement ps = connection.prepareStatement(sql);
+             ResultSet resultSet = ps.executeQuery()) {
+            while (resultSet.next()) {
+                User user = new User();
+                user.setId(resultSet.getString("id"));
+                user.setAbout(resultSet.getString("about"));
+                user.setEmail(resultSet.getString("email"));
+                user.setPhone(resultSet.getString("phone"));
+                user.setPassword(resultSet.getString("password"));
+                user.setRole(resultSet.getString("role"));
+                user.setName(resultSet.getString("name"));
+                user.setGender(resultSet.getString("gender"));
+                user.setDob(resultSet.getDate("dob").toLocalDate().toString());
+                user.setAddress(resultSet.getString("address"));
+                user.setBanned(resultSet.getBoolean("is_banned"));
+                user.setCreatedAt(resultSet.getTimestamp("created_at").toLocalDateTime().toString());
+                user.setUpdatedAt(resultSet.getTimestamp("updated_at").toLocalDateTime().toString());
+                users.add(user);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return users;
+    }
+
     public User findByCredential(String credential) {
         String sql = "SELECT * FROM users WHERE id = ? OR email = ? OR phone = ?";
         User user = null;

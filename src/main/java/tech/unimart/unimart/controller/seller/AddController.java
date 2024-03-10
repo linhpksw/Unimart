@@ -19,7 +19,7 @@ import java.util.List;
         maxFileSize = 1024 * 1024 * 5,      // 5 MB
         maxRequestSize = 1024 * 1024 * 5 * 5) // 25 MB
 
-@WebServlet(name = "AddController", value = "/user/add")
+@WebServlet(name = "AddController", value = "/seller/add")
 public class AddController extends HttpServlet {
 
     private final UserService userService = new UserService();
@@ -27,7 +27,7 @@ public class AddController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.setAttribute("logicalURI", "/user/add");
+        request.setAttribute("logicalURI", "/seller/add");
         request.getRequestDispatcher("/user/user.jsp").forward(request, response);
     }
 
@@ -51,7 +51,7 @@ public class AddController extends HttpServlet {
             request.setAttribute("logicalURI", "/user/add");
             request.getRequestDispatcher("/user/user.jsp").forward(request, response);
         } else {
-            response.sendRedirect(request.getContextPath() + "/user/add");
+            response.sendRedirect(request.getContextPath() + "/seller/add");
         }
     }
 }

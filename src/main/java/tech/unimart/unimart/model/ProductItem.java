@@ -60,4 +60,15 @@ public class ProductItem {
     public void setStock(int stock) {
         this.stock = stock;
     }
+
+    @Override
+    public String toString() {
+        return "ProductItem{" +
+                "id='" + id + '\'' +
+                ", productId='" + productId + '\'' +
+                ", attributes=" + attributes +
+                ", price=" + price +
+                ", stock=" + stock +
+                '}';
+    }
 }

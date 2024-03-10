@@ -14,7 +14,7 @@
         <title>Category</title>
     </head>
     <body>
-        <!-- Hero section -->
+        <jsp:include page="/components/alert.jsp"/>
         <jsp:include page="/components/header.jsp"/>
         
         <main class="mx-auto max-w-7xl px-8 pt-12">

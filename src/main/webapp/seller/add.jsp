@@ -3,11 +3,11 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jstl/fmt" %>
 
-<form action="${pageContext.request.contextPath}/user/add" method="post" enctype="multipart/form-data">
-    <div class="space-y-6 pt-6 px-4 pb-8">
+<form action="${pageContext.request.contextPath}/seller/add" method="post" enctype="multipart/form-data">
+    <div class="space-y-6 py-6 px-4">
         <%-- General information --%>
         <div class="border-b border-gray-900/10 pb-12">
-            <h2 class="text-lg font-bold leading-7 text-gray-900">General information</h2>
+            <h2 class="text-xl font-bold leading-7 text-gray-900">General information</h2>
             <p class="mt-1 leading-6 text-gray-600">Describe about your product.</p>
             
             <div class="mt-10 grid grid-cols-12 gap-6">
@@ -87,7 +87,7 @@
                         description</label>
                     <div class="mt-2">
                         <textarea id="about" name="about" rows="4"
-                                  class="overflow-hidden resize-none block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600"></textarea>
+                                  class="overflow-hidden block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600"></textarea>
                     </div>
                     <p class="mt-3 leading-6 text-gray-600">Write a few sentences about your product. Please
                         type at least 100 characters.</p>
@@ -160,7 +160,7 @@
                         <label for="total-class"
                                class="block font-medium leading-6 text-gray-900">Total classification?</label>
                         <div class="mt-2">
-                            <input type="number" min="1" name="total-class" id="total-class"
+                            <input type="number" min="2" name="total-class" id="total-class"
                                    class="block rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600">
                         </div>
                     </div>

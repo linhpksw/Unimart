@@ -29,4 +29,12 @@ public class ProductDetail {
     public void setProductItems(List<ProductItem> productItems) {
         this.productItems = productItems;
     }
+
+    @Override
+    public String toString() {
+        return "ProductDetail{" +
+                "product=" + product +
+                ", productItems=" + productItems +
+                '}';
+    }
 }

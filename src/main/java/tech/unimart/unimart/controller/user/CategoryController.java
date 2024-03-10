@@ -17,11 +17,7 @@ import java.util.List;
 
 @WebServlet(name = "CategoryController", value = "/categories")
 public class CategoryController extends HttpServlet {
-    private final ProductService productService;
-
-    public CategoryController() {
-        this.productService = new ProductService();
-    }
+    private final ProductService productService = new ProductService();
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

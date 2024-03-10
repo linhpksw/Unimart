@@ -3,7 +3,10 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jstl/fmt" %>
 
-<form class="divide-y divide-gray-200 lg:col-span-9" action="${pageContext.request.contextPath}/user/profile"
+<c:set var="user" value="${sessionScope.user}"/>
+<c:set var="contextPath" value="${pageContext.request.contextPath}"/>
+
+<form class="divide-y divide-gray-200 lg:col-span-9" action="${contextPath}/user/profile"
       method="POST">
     <!-- Profile section -->
     <div class="py-6 px-4 sm:p-6 lg:pb-8">

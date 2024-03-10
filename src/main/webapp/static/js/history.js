@@ -1,0 +1,68 @@
+console.log(ordersJson)
+
+document.addEventListener('DOMContentLoaded', () => {
+    const ordersContainer = document.getElementById('orders-container');
+    renderOrders(ordersJson, ordersContainer);
+});
+
+function renderOrders(orders, container) {
+    container.innerHTML = '';
+
+    orders.forEach(order => {
+        const orderElement = document.createElement('div');
+        orderElement.className = 'border-gray-200 border shadow-sm rounded-lg';
+
+        const orderDate = new Date(order.orderDate);
+        const formattedDate = formatTimestampToVietnameseDate(orderDate);
+
+        orderElement.innerHTML = `
+            <div class="border-b border-gray-200 p-4 grid grid-cols-12 gap-x-6">
+                <dl class="col-span-9 grid grid-cols-12 flex-1 gap-x-6 ">
+                    <div class="col-span-4">
+                        <dt class="font-medium text-gray-900">Order number</dt>
+                        <dd class="mt-1 text-gray-500">#${order.orderId}</dd>
+                    </div>
+                    <div class="col-span-5">
+                        <dt class="font-medium text-gray-900">Date placed</dt>
+                        <dd class="mt-1 text-gray-500">
+                            <time>${formattedDate}</time>
+                        </dd>
+                    </div>
+                    <div class="col-span-3">
+                        <dt class="font-medium text-gray-900">Total amount</dt>
+                        <dd class="mt-1 font-medium text-gray-900">${formatCurrencyVND(order.total)}</dd>
+                    </div>
+                </dl>
+                
+                <div class="col-span-3 flex items-center justify-end">
+                    <a href="${contextPath}/order/${order.orderId}"
+                       class="flex items-center justify-center rounded-md border border-gray-300 bg-white py-2 px-2.5 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
+                        <span>View Order Detail</span>
+                    </a>
+                </div>
+            </div>
+        `;
+
+        container.appendChild(orderElement);
+    })
+}
+
+function formatTimestampToVietnameseDate(timestamp) {
+    const date = new Date(timestamp);
+    const options = {
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit',
+        weekday: 'long',
+        day: 'numeric',
+        month: 'numeric',
+        year: 'numeric',
+        hour12: false
+    };
+
+    return new Intl.DateTimeFormat('vi-VN', options).format(date);
+}
+
+function formatCurrencyVND(amount) {
+    return new Intl.NumberFormat('vi-VN', {style: 'currency', currency: 'VND'}).format(amount);
+}

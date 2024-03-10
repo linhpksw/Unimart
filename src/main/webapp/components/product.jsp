@@ -7,7 +7,6 @@
 <c:set var="contextPath" value="${pageContext.request.contextPath}"/>
 <c:set var="imageSrc" value="${contextPath}/static/images/products"/>
 
-
 <div class="mx-auto overflow-hidden px-8">
     <h2 class="sr-only">Products</h2>
     <div class="grid-cols-4 grid gap-4 border-gray-200">
