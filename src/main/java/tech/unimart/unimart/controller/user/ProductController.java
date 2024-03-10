@@ -53,6 +53,12 @@ public class ProductController extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String action = request.getParameter("action");
         User user = userService.getUserFromSession(request);
+
+        if (user == null) {
+            response.sendRedirect(request.getContextPath() + "/login");
+            return;
+        }
+
         String productId = request.getParameter("productId");
         String productItemId = request.getParameter("productItemId");
         String storeId = request.getParameter("storeId");

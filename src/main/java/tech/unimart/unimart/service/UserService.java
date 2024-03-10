@@ -97,14 +97,13 @@ public class UserService {
                 // Create a new session if one doesn't exist
                 session = request.getSession(true);
                 session.setAttribute("user", user);
-                response.sendRedirect(request.getContextPath() + "/");
                 return user;
             }
         }
         return user; // Return null if no user is authenticated
     }
 
-    public boolean loginAndRememberUser(HttpServletRequest request, HttpServletResponse response, String credential, String password, String rememberMe) throws IOException {
+    public boolean loginAndRememberUser(HttpServletRequest request, HttpServletResponse response, String credential, String password, String remember) throws IOException {
         User user = authenticate(credential, password);
 
         if (user != null) {
@@ -112,7 +111,7 @@ public class UserService {
             // Store user in session
             session.setAttribute("user", user);
 
-            if ("on".equals(rememberMe)) {
+            if ("on".equals(remember)) {
                 String token = createAndStoreRememberToken(user);
                 Cookie rememberCookie = new Cookie("remember", token);
                 rememberCookie.setMaxAge(60 * 60 * 24 * 30); // 30 days

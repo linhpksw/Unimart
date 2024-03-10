@@ -1,6 +1,7 @@
 package tech.unimart.unimart.filter;
 
 import jakarta.servlet.*;
+import jakarta.servlet.annotation.WebFilter;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import tech.unimart.unimart.model.User;
@@ -10,8 +11,11 @@ import java.io.IOException;
 import java.io.PrintStream;
 import java.io.PrintWriter;
 import java.io.StringWriter;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
-//@WebFilter(filterName = "AuthenFilter", urlPatterns = {"/*"})
+@WebFilter(filterName = "AuthenFilter", urlPatterns = {"/*"})
 
 public class AuthenFilter implements Filter {
     private static final boolean debug = true;
@@ -42,35 +46,81 @@ public class AuthenFilter implements Filter {
         HttpServletRequest httpRequest = (HttpServletRequest) request;
         HttpServletResponse httpResponse = (HttpServletResponse) response;
 
+        String requestURI = httpRequest.getRequestURI().substring(httpRequest.getContextPath().length());
+
         // Check if this URL should be excluded from authentication check
-        if (!requiresAuthentication(httpRequest)) {
-            // Proceed without authentication check
+        if (!requiresAuthentication(requestURI)) {
             chain.doFilter(request, response);
             return;
         }
 
         User user = userService.checkAndAuthenticateUser(httpRequest, httpResponse);
-
-        // Redirect to login page if user not authenticated
         if (user == null) {
             httpResponse.sendRedirect(httpRequest.getContextPath() + "/login");
-        } else {
-            // User is logged in or accessing a public path
-            chain.doFilter(request, response);
+            return;
         }
+
+        List<String> requiredRoles = getRequiredRolesForURI(requestURI);
+        if (!userHasRole(user, requiredRoles)) {
+            httpRequest.getRequestDispatcher("/components/403.jsp").forward(request, response);
+
+            return;
+        }
+        chain.doFilter(request, response);
     }
 
-    private boolean requiresAuthentication(HttpServletRequest request) {
-        // Get the request URI without the context path
-        String requestURI = request.getRequestURI().substring(request.getContextPath().length());
+    private boolean userHasRole(User user, List<String> requiredRoles) {
+        return requiredRoles.contains(user.getRole());
+    }
+
+    private List<String> getRequiredRolesForURI(String requestURI) {
+        Map<String, List<String>> roleAccessMap = new HashMap<>();
+
+        // Admin-only URLs
+        roleAccessMap.put("/admin/account", List.of("admin"));
+        roleAccessMap.put("/admin/delete/", List.of("admin")); // Assuming pattern matching for wildcard "*"
+
+        // Seller-only URLs
+        roleAccessMap.put("/seller/add", List.of("seller"));
+        roleAccessMap.put("/seller/delete/", List.of("seller")); // Assuming pattern matching for wildcard "*"
+        roleAccessMap.put("/seller/edit/", List.of("seller")); // Assuming pattern matching for wildcard "*"
+        roleAccessMap.put("/seller/revenue", List.of("seller"));
+        roleAccessMap.put("/seller/stock", List.of("seller"));
+
+        // URLs accessible by all logged-in users
+        List<String> allUserRoles = List.of("admin", "seller", "customer");
+        roleAccessMap.put("/user/profile", allUserRoles);
+        roleAccessMap.put("/cart", allUserRoles);
+        roleAccessMap.put("/user/history", allUserRoles);
+        roleAccessMap.put("/order/", allUserRoles); // Assuming pattern matching for wildcard "*"
+
+        // Pattern matching logic for dynamic URL parts (like wildcards "*")
+        for (Map.Entry<String, List<String>> entry : roleAccessMap.entrySet()) {
+            if (requestURI.startsWith(entry.getKey())) {
+                return entry.getValue();
+            }
+        }
+
+        // Default to no roles required (public access)
+        return List.of();
+    }
+
+    private boolean requiresAuthentication(String requestURI) {
+        if (requestURI.equals("/") || requestURI.isEmpty()) {
+            return false;
+        }
 
         // No authentication required for these URLs
-        return !requestURI.startsWith("/login")
-                && !requestURI.startsWith("/forgot")
-                && !requestURI.startsWith("/signup")
-                && !requestURI.startsWith("/static")
-                && !requestURI.startsWith("/css/")
-                && !requestURI.startsWith("/js/");
+        return !(requestURI.startsWith("/product/")
+                || requestURI.startsWith("/home")
+                || requestURI.startsWith("/categories")
+                || requestURI.startsWith("/login")
+                || requestURI.startsWith("/signup")
+                || requestURI.startsWith("/static")
+                || requestURI.startsWith("/components"))
+                || requestURI.startsWith("/reset")
+                || requestURI.startsWith("/forgot")
+                || requestURI.startsWith("/logout");
     }
 
     /**

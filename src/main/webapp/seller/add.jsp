@@ -36,20 +36,20 @@
                 
                 <%-- Product name area --%>
                 <div class="col-span-8">
-                    <label for="product-name" class="block text-sm font-medium leading-6 text-gray-900">Product
+                    <label for="product-name" class="block font-medium leading-6 text-gray-900">Product
                         name</label>
                     <div class="mt-2">
-                        <input type="text" name="product-name" id="product-name" autocomplete="product-name"
-                               class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                        <input type="text" name="product-name" id="product-name" autocomplete="product-name" required
+                               class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:leading-6">
                     </div>
                 </div>
                 
                 <%-- Category area --%>
                 <div class="col-span-4">
-                    <label for="category" class="block text-sm font-medium leading-6 text-gray-900">Category</label>
+                    <label for="category" class="block font-medium leading-6 text-gray-900">Category</label>
                     <div class="mt-2">
-                        <select id="category" name="category" autocomplete="category"
-                                class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6">
+                        <select id="category" name="category" autocomplete="category" required
+                                class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:leading-6">
                             <option>Men Clothes</option>
                             <option>Women Clothes</option>
                             <option>Mobile & Gadgets</option>
@@ -83,7 +83,7 @@
                 
                 <%-- About area --%>
                 <div class="col-span-8">
-                    <label for="about" class="block text-sm font-medium leading-6 text-gray-900">Product
+                    <label for="about" class="block font-medium leading-6 text-gray-900">Product
                         description</label>
                     <div class="mt-2">
                         <textarea id="about" name="about" rows="4"

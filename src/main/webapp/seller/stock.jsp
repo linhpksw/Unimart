@@ -31,6 +31,9 @@
                     <thead class="bg-gray-100">
                         <tr>
                             <th scope="col"
+                                class="py-3.5 pl-4 pr-3 text-center font-semibold text-gray-900">No.
+                            </th>
+                            <th scope="col"
                                 class="py-3.5 pl-4 pr-3 text-left font-semibold text-gray-900">Product name
                             </th>
                             <th scope="col" class="px-3 py-3.5 text-center font-semibold text-gray-900">
@@ -50,13 +53,18 @@
                         </tr>
                     </thead>
                     <tbody class="divide-y divide-gray-200 bg-white">
+                        <c:set var="counter" value="0" scope="page"/> <!-- Initialize counter -->
                         <c:forEach var="productDetail" items="${productsStock}">
                             
                             <c:set var="product" value="${productDetail.product}"/>
                             <c:set var="productItems" value="${productDetail.productItems}"/>
                             
                             <c:forEach var="productItem" items="${productItems}">
+                                <c:set var="counter" value="${counter + 1}"/> <!-- Increment counter -->
                                 <tr>
+                                    <td class="whitespace-nowrap px-3 py-4 text-gray-500">
+                                        <div class="text-gray-900 text-center">${counter}</div>
+                                    </td>
                                     <td class="whitespace-nowrap py-4 pl-4 pr-3">
                                         <div class="flex items-center">
                                             <div class="h-10 w-10 flex-shrink-0 overflow-hidden rounded-lg">

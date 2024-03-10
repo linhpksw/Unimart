@@ -3,7 +3,6 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jstl/fmt" %>
 
-<c:set var="errorMessage" value="${sessionScope.errorMessage}"/>
 <c:set var="requestURI" value="${pageContext.request.requestURI}"/>
 <c:set var="currentPath" value="${requestScope.logicalURI}"/>
 <c:set var="contextPath" value="${pageContext.request.contextPath}"/>
@@ -15,7 +14,6 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Unimart</title>
         <link rel="stylesheet" href="${contextPath}/static/css/tailwind.css"/>
-        <jsp:include page="/components/alert.jsp"/>
     </head>
     
     <body class="h-full overflow-hidden">

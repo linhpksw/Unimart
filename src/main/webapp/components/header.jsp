@@ -102,7 +102,7 @@
                                 <div class="flex items-center lg:ml-8">
                                     <!-- Dashboard -->
                                     <a href="${contextPath}/user/profile"
-                                       class="text-sm font-medium text-white block">Dashboard</a>
+                                       class="font-medium text-white block">Dashboard</a>
                                     
                                     <!-- Cart -->
                                     <div class="flow-root ml-8">

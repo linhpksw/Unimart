@@ -35,14 +35,22 @@ public class ProfileController extends HttpServlet {
 
         User user = new User(id, about, email, phone, role, name, gender, dob, address);
 
-        String result = userService.updateUser(request, user);
+        try {
+            String result = userService.updateUser(request, user);
 
-        if (!"success".equals(result)) {
-            request.setAttribute("errorMessage", result);
+            if (!"success".equals(result)) {
+                request.setAttribute("errorMessage", result);
+            } else {
+                request.setAttribute("successMessage", "Profile updated successfully");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+
+            request.setAttribute("errorMessage", "An error occurred while updating the profile: " + e.getMessage());
+        } finally {
+            // This will execute whether an exception occurred or not
             request.setAttribute("logicalURI", "/user/profile");
             request.getRequestDispatcher("/user/user.jsp").forward(request, response);
-        } else {
-            response.sendRedirect(request.getContextPath() + "/user/profile");
         }
     }
 }

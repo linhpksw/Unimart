@@ -16,11 +16,6 @@
 
 <c:set var="length" value="${fn:length(productItems)}"/>
 
-<p>${product}</p>
-<br>
-<br>
-<p>${productItems}</p>
-
 <form action="${pageContext.request.contextPath}/seller/edit/${product.id}" method="post" enctype="multipart/form-data">
     <div class="space-y-6 py-6 px-4">
         <%-- General information --%>

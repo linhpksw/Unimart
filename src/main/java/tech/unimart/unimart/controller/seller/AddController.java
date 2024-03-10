@@ -48,10 +48,12 @@ public class AddController extends HttpServlet {
 
         if (!"success".equals(result)) {
             request.setAttribute("errorMessage", result);
-            request.setAttribute("logicalURI", "/user/add");
+            request.setAttribute("logicalURI", "/seller/add");
             request.getRequestDispatcher("/user/user.jsp").forward(request, response);
         } else {
-            response.sendRedirect(request.getContextPath() + "/seller/add");
+            request.setAttribute("successMessage", "Product added successfully");
+            request.setAttribute("logicalURI", "/seller/add");
+            request.getRequestDispatcher("/user/user.jsp").forward(request, response);
         }
     }
 }

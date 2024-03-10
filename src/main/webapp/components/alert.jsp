@@ -6,7 +6,7 @@
 <c:set var="errorMessage" value="${requestScope.errorMessage}"/>
 <c:set var="successMessage" value="${requestScope.successMessage}"/>
 
-<div id="toast-container" class="fixed top-5 right-5 z-50 space-y-2">
+<div id="toast-container" class="fixed bottom-5 right-5 z-50 space-y-2">
     <c:if test="${not empty successMessage}">
         <div id="toast-success"
              class="flex items-center gap-2 w-full p-2 mb-4 text-gray-500 bg-gray-100 rounded-lg shadow-lg toast-enter-active"

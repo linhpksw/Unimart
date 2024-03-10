@@ -9,9 +9,11 @@ import tech.unimart.unimart.service.ProductService;
 
 import java.io.IOException;
 
-@WebServlet(name = "DeleteController", value = "/seller/delete/*")
-public class DeleteController extends HttpServlet {
-    private final ProductService productService = new ProductService(); // Initialize as appropriate
+
+@WebServlet(name = "DeleteProductController", value = "/seller/delete/*")
+
+public class DeleteProductController extends HttpServlet {
+    private final ProductService productService = new ProductService();
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -19,15 +21,15 @@ public class DeleteController extends HttpServlet {
         String result = productService.deleteProductItem(productItemId);
 
         if ("success".equals(result)) {
-            response.sendRedirect(request.getContextPath() + "/seller/stock");
+            response.sendRedirect(request.getContextPath() + "/seller/stock?delete=success");
         } else {
             request.setAttribute("errorMessage", result);
-            request.getRequestDispatcher("/error.jsp").forward(request, response);
+            request.setAttribute("logicalURI", "/seller/stock");
+            request.getRequestDispatcher("/user/user.jsp").forward(request, response);
         }
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
     }
 }

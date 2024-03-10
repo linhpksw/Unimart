@@ -19,6 +19,6 @@ public class LogoutController extends HttpServlet {
         userService.logoutUser(request, response);
 
         // Redirect to login page or home page after logout
-        response.sendRedirect(request.getContextPath() + "/");
+        response.sendRedirect(request.getContextPath() + "/login");
     }
 }

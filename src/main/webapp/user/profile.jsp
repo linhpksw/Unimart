@@ -21,11 +21,12 @@
                 <!-- Username -->
                 <div>
                     <label for="username"
-                           class="block text-sm font-medium text-gray-700">Username</label>
+                           class="block font-medium text-gray-700">Username</label>
                     <div class="mt-1 flex rounded-md shadow-sm">
                         <span class="inline-flex items-center rounded-l-md border border-r-0 border-gray-300 bg-gray-50 px-3 text-gray-500 sm:text-sm">unimart.tech/</span>
                         <input type="text" name="username" id="username"
                                autocomplete="username"
+                               readonly
                                value="${user.id}"
                                class="block w-full min-w-0 flex-grow rounded-none rounded-r-md border-gray-300 focus:border-sky-500 focus:ring-sky-500 sm:text-sm"
                         >
@@ -35,10 +36,10 @@
                 <!-- About -->
                 <div>
                     <label for="about"
-                           class="block text-sm font-medium text-gray-700">About</label>
+                           class="block font-medium text-gray-700">About</label>
                     <div class="mt-1">
-                                                    <textarea id="about" name="about" rows="3"
-                                                              class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-sky-500 focus:ring-sky-500 sm:text-sm">${user.about}</textarea>
+                        <textarea id="about" name="about" rows="3" required
+                                  class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-sky-500 focus:ring-sky-500">${user.about}</textarea>
                     </div>
                     <p class="mt-2 text-sm text-gray-500">Brief description for your
                         profile. URLs are hyperlinked.</p>
@@ -47,7 +48,7 @@
             
             <!-- Profile photo -->
             <div class="mt-0 ml-6 flex-shrink-0 flex-grow-0">
-                <p class="text-sm font-medium text-gray-700" aria-hidden="true">
+                <p class="font-medium text-gray-700" aria-hidden="true">
                     Photo</p>
                 
                 <div class="relative overflow-hidden rounded-full block">
@@ -69,46 +70,51 @@
             <!-- Full Name -->
             <div class="col-span-6">
                 <label for="name"
-                       class="block text-sm font-medium text-gray-700">Full name</label>
+                       class="block font-medium text-gray-700">Full name</label>
                 <input type="text" name="name" id="name"
                        autocomplete="name"
+                       required
                        value="${user.name}"
-                       class="mt-1 block w-full rounded-md border border-gray-300 py-2 px-3 shadow-sm focus:border-sky-500 focus:outline-none focus:ring-sky-500 sm:text-sm">
+                       class="mt-1 block w-full rounded-md border border-gray-300 py-2 px-3 shadow-sm focus:border-sky-500 focus:outline-none focus:ring-sky-500">
             </div>
             
             <!-- Email -->
             <div class="col-span-6">
                 <label for="email"
-                       class="block text-sm font-medium text-gray-700">Email</label>
+                       class="block font-medium text-gray-700">Email</label>
                 <input type="text" name="email" id="email"
                        autocomplete="email"
+                       required
                        value="${user.email}"
-                       class="mt-1 block w-full rounded-md border border-gray-300 py-2 px-3 shadow-sm focus:border-sky-500 focus:outline-none focus:ring-sky-500 sm:text-sm">
+                       class="mt-1 block w-full rounded-md border border-gray-300 py-2 px-3 shadow-sm focus:border-sky-500 focus:outline-none focus:ring-sky-500">
             </div>
             
             <!-- Phone number -->
             <div class="col-span-6">
                 <label for="phone"
-                       class="block text-sm font-medium text-gray-700">Phone
+                       class="block font-medium text-gray-700">Phone
                     number</label>
                 <input type="text" name="phone" id="phone"
+                       required
                        autocomplete="phone" value="${user.phone}"
-                       class="mt-1 block w-full rounded-md border border-gray-300 py-2 px-3 shadow-sm focus:border-sky-500 focus:outline-none focus:ring-sky-500 sm:text-sm">
+                       pattern="\d{10}"
+                       title="Phone number should be 10 digits"
+                       class="mt-1 block w-full rounded-md border border-gray-300 py-2 px-3 shadow-sm focus:border-sky-500 focus:outline-none focus:ring-sky-500">
             </div>
             
             <!-- Gender -->
             <div class="col-span-6">
                 <div>
-                    <label class="block text-sm font-medium text-gray-700">Gender</label>
+                    <label class="block font-medium text-gray-700">Gender</label>
                     
                     <div class="mt-2 flex items-center space-y-0 space-x-10">
                         <div class="flex items-center">
-                            <input id="male" name="gender" value="male"
+                            <input id="male" name="gender" value="male" required
                             ${user.gender == 'male' ? 'checked' : ''}
                                    type="radio"
                                    class="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-500">
                             <label for="male"
-                                   class="ml-3 block text-sm font-medium text-gray-700">Male</label>
+                                   class="ml-3 block medium text-gray-700">Male</label>
                         </div>
                         
                         <div class="flex items-center">
@@ -116,7 +122,7 @@
                             ${user.gender == 'female' ? 'checked' : ''}
                                    class="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-500">
                             <label for="female"
-                                   class="ml-3 block text-sm font-medium text-gray-700">Female</label>
+                                   class="ml-3 block font-medium text-gray-700">Female</label>
                         </div>
                         
                         <div class="flex items-center">
@@ -124,7 +130,7 @@
                             ${user.gender == 'other' ? 'checked' : ''}
                                    class="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-500">
                             <label for="other"
-                                   class="ml-3 block text-sm font-medium text-gray-700">Other</label>
+                                   class="ml-3 block font-medium text-gray-700">Other</label>
                         </div>
                     </div>
                 
@@ -134,12 +140,13 @@
             <!-- Date of birth -->
             <div class="col-span-6">
                 <label for="dob"
-                       class="block text-sm font-medium text-gray-700">Date of
+                       class="block font-medium text-gray-700">Date of
                     birth</label>
                 <input type="date" name="dob" id="dob"
+                       required
                        value="${user.dob}"
                        autocomplete="dob"
-                       class="mt-1 block w-full rounded-md border border-gray-300 py-2 px-3 shadow-sm focus:border-sky-500 focus:outline-none focus:ring-sky-500 sm:text-sm">
+                       class="mt-1 block w-full rounded-md border border-gray-300 py-2 px-3 shadow-sm focus:border-sky-500 focus:outline-none focus:ring-sky-500">
             </div>
         </div>
     </div>
@@ -150,7 +157,7 @@
             <div>
                 <h2 class="text-lg font-medium leading-6 text-gray-900">My
                     Addresses</h2>
-                <p class="mt-1 text-sm text-gray-500">Here is the address that shipper
+                <p class="mt-1 text-gray-500">Here is the address that shipper
                     will deliver to you.</p>
             </div>
             
@@ -158,11 +165,12 @@
                 <!-- Address -->
                 <div class="col-span-6">
                     <label for="address"
-                           class="block text-sm font-medium text-gray-700">Address</label>
+                           class="block font-medium text-gray-700">Address</label>
                     <input type="text" name="address" id="address"
                            value="${user.address}"
                            autocomplete="address"
-                           class="mt-1 block w-full rounded-md border border-gray-300 py-2 px-3 shadow-sm focus:border-sky-500 focus:outline-none focus:ring-sky-500 sm:text-sm">
+                           required
+                           class="mt-1 block w-full rounded-md border border-gray-300 py-2 px-3 shadow-sm focus:border-sky-500 focus:outline-none focus:ring-sky-500">
                 </div>
             </div>
         
@@ -175,16 +183,16 @@
             <div>
                 <h2 class="text-lg font-medium leading-6 text-gray-900">Activate Your
                     Shop Account</h2>
-                <p class="mt-1 text-sm text-gray-500">Turn on your shop account to start
+                <p class="mt-1 text-gray-500">Turn on your shop account to start
                     engaging with customers and manage your products on our
                     platform.</p>
             </div>
             
             <div class="flex items-center justify-between py-4">
                 <div class="flex flex-col">
-                    <p class="text-sm font-medium text-gray-900"
+                    <p class="font-medium text-gray-900"
                     >Activate</p>
-                    <p class="text-sm text-gray-500">
+                    <p class="text-gray-500">
                         By enabling your shop account, you agree with our
                         platform's
                         <a href="#" class="text-blue-600 hover:text-blue-800">Terms of
@@ -215,7 +223,7 @@
         
         <div class="mt-4 flex justify-end py-4 px-4 sm:px-6">
             <button type="submit"
-                    class="ml-5 inline-flex justify-center rounded-md border border-transparent bg-sky-700 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-sky-800 focus:outline-none focus:ring-2 focus:ring-sky-500 focus:ring-offset-2">
+                    class="ml-5 inline-flex justify-center rounded-md border border-transparent bg-sky-700 py-2 px-4 font-medium text-white shadow-sm hover:bg-sky-800 focus:outline-none focus:ring-2 focus:ring-sky-500 focus:ring-offset-2">
                 Save
             </button>
         </div>

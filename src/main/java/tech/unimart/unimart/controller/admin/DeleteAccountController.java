@@ -10,8 +10,8 @@ import tech.unimart.unimart.service.UserService;
 
 import java.io.IOException;
 
-@WebServlet(name = "DeleteController", value = "/admin/delete/*")
-public class DeleteController extends HttpServlet {
+@WebServlet(name = "DeleteAccountController", value = "/admin/delete/*")
+public class DeleteAccountController extends HttpServlet {
     private final UserService userService = new UserService();
 
     @Override

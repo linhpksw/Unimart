@@ -19,9 +19,9 @@ public class LoginController extends HttpServlet {
             throws ServletException, IOException {
         String credential = request.getParameter("credential");
         String password = request.getParameter("password");
-        String rememberMe = request.getParameter("rememberMe");
+        String remember = request.getParameter("remember");
 
-        boolean isLoginSuccess = userService.loginAndRememberUser(request, response, credential, password, rememberMe);
+        boolean isLoginSuccess = userService.loginAndRememberUser(request, response, credential, password, remember);
 
         if (isLoginSuccess) {
             response.sendRedirect(request.getContextPath() + "/");
@@ -42,9 +42,11 @@ public class LoginController extends HttpServlet {
             response.sendRedirect(request.getContextPath() + "/");
         } else {
             // No user session or remember me cookie found, show login page
+            String signupSuccess = request.getParameter("signup");
+            if ("success".equals(signupSuccess)) {
+                request.setAttribute("successMessage", "Signup successful, please login");
+            }
             request.getRequestDispatcher("/security/login.jsp").forward(request, response);
         }
     }
-
-
 }
