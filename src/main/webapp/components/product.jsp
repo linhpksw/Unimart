@@ -16,8 +16,8 @@
                     <img src="${imageSrc}/${product.images[0]}" alt="Product Image"
                          class="h-full w-full object-cover object-center">
                 </div>
-                <div class="pt-10 pb-4 text-center">
-                    <h3 class="text-sm font-medium text-gray-900">
+                <div class="pt-4 text-center">
+                    <h3 class="font-medium text-gray-900">
                         <a href="${contextPath}/product/${product.id}">
                             <span aria-hidden="true" class="absolute inset-0"></span>${product.name}
                         </a>
@@ -36,11 +36,25 @@
                                 </svg>
                             </c:forEach>
                         </div>
-                        <p class="mt-1 text-sm text-gray-500">38 sold</p>
                     </div>
-                    <p class="mt-4 text-base font-medium text-gray-900">${product.averagePrice}</p>
+                    <p class="price mt-4 font-medium text-gray-900">${product.averagePrice}</p>
                 </div>
             </div>
         </c:forEach>
     </div>
 </div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const priceElements = document.querySelectorAll('.price');
+
+        priceElements.forEach(element => {
+            const amount = parseFloat(element.textContent);
+            element.textContent = formatCurrencyVND(amount);
+        });
+    });
+
+    function formatCurrencyVND(amount) {
+        return new Intl.NumberFormat('vi-VN', {style: 'currency', currency: 'VND'}).format(amount);
+    }
+</script>

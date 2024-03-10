@@ -8,7 +8,6 @@ const totalStock = productItems.reduce((sum, item) => sum + item.stock, 0);
 // console.log(productDetail);
 // console.log(productItems);
 
-
 document.addEventListener('DOMContentLoaded', () => {
     renderProductInfo(productDetail, productItems);
 });
@@ -18,7 +17,12 @@ function renderProductInfo(productDetail, productItems) {
     productName.textContent = productDetail.name;
 
     const priceRange = document.getElementById('price-range');
-    priceRange.textContent = `₫${minPrice} - ₫${maxPrice}`;
+
+    if (minPrice === maxPrice) {
+        priceRange.textContent = formatCurrencyVND(minPrice);
+    } else {
+        priceRange.textContent = formatCurrencyVND(minPrice) + ' - ' + formatCurrencyVND(maxPrice);
+    }
 
     const totalStockElement = document.getElementById('total-stock');
     totalStockElement.textContent = `Total stock: ${totalStock}`;
@@ -129,7 +133,7 @@ function updatePriceAndStock(attribute, value, minPrice, maxPrice, totalStock) {
         currentPrice = matchingItems[0].price;
         currentStock = matchingItems[0].stock;
 
-        document.getElementById('price-range').textContent = `₫${currentPrice}`;
+        document.getElementById('price-range').textContent = formatCurrencyVND(currentPrice);
         document.getElementById('total-stock').textContent = `Total stock: ${currentStock}`;
         document.getElementById('quantity').min = 1;
         document.getElementById('quantity').max = currentStock;
@@ -141,10 +145,23 @@ function updatePriceAndStock(attribute, value, minPrice, maxPrice, totalStock) {
         currentMaxPrice = maxPrice;
         currentTotalStock = totalStock;
 
-        document.getElementById('price-range').textContent = `₫${currentMinPrice} - ₫${currentMaxPrice}`;
+        let finalPrice;
+
+        if (currentMinPrice === currentMaxPrice) {
+            finalPrice = formatCurrencyVND(currentMinPrice);
+            document.getElementById('price-range').textContent = finalPrice;
+        } else {
+            finalPrice = `₫${currentMinPrice} - ₫${currentMaxPrice}`;
+            document.getElementById('price-range').textContent = finalPrice;
+        }
+
         document.getElementById('total-stock').textContent = `Total stock: ${currentTotalStock}`;
         document.getElementById('quantity').min = 1;
         document.getElementById('quantity').max = totalStock;
         document.getElementById('quantity').value = 1;
     }
+}
+
+function formatCurrencyVND(amount) {
+    return new Intl.NumberFormat('vi-VN', {style: 'currency', currency: 'VND'}).format(amount);
 }

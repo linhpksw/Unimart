@@ -60,7 +60,7 @@
                 <!-- Product info -->
                 <form action="${contextPath}/product" id="product-info-container" method="post"
                       class="col-span-3 px-4 mt-0">
-                    <h1 id="product-name" class="text-2xl font-bold tracking-tight text-gray-900">${product.name}</h1>
+                    <h1 id="product-name" class="text-2xl font-semibold leading-6 text-gray-800">${product.name}</h1>
                     
                     <input type="hidden" name="productId" value="${product.id}">
                     <input type="hidden" name="name" value="${product.name}">
@@ -69,7 +69,7 @@
                     <input type="hidden" id="product-item-id" name="productItemId" value="">
                     
                     <!-- Stars -->
-                    <div class="mt-1">
+                    <div class="mt-2">
                         <div class="flex items-center">
                             <div class="flex items-center">
                                 <!--
@@ -93,7 +93,8 @@
                     
                     <!-- Price Range -->
                     <div class="mt-5">
-                        <p id="price-range" class="text-2xl tracking-tight text-gray-800"></p>
+                        <p id="price-range"
+                           class="text-rose-900 w-max rounded-md shadow-md block px-4 bg-rose-100 py-4 text-2xl font-bold"></p>
                     </div>
                     
                     <!-- Options -->
@@ -115,9 +116,10 @@
                                 class="mt-10 flex w-max items-center justify-center rounded-md border border-transparent bg-indigo-600 py-3 px-8 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
                             Buy now
                         </button>
+                        
                         <button type="submit" name="action" value="addToCart"
-                                class="mt-10 flex w-max items-center justify-center rounded-md border border-transparent bg-indigo-600 py-3 px-8 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
-                            Add to cart
+                                class="mt-[2.5rem] relative inline-flex items-center justify-center p-0.5 me-2 overflow-hidden  font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-purple-600 to-blue-500 group-hover:from-purple-600 group-hover:to-blue-500 hover:text-white focus:ring-4 focus:outline-none focus:ring-blue-300">
+                            <span class="relative px-5 py-2.5 transition-all ease-in duration-75 bg-white rounded-md group-hover:bg-opacity-0">Add to cart</span>
                         </button>
                     </div>
                 </form>

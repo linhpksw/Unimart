@@ -27,7 +27,7 @@
                 </div>
             </div>
             
-            <div class="pt-12 pb-24 grid grid-cols-12">
+            <div class="pt-6 pb-24 grid grid-cols-12">
                 <%-- Filter area --%>
                 <aside class="col-span-2">
                     <h2 class="sr-only">Filters</h2>

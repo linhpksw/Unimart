@@ -19,7 +19,7 @@ public class DeleteAccountController extends HttpServlet {
         String pathInfo = request.getPathInfo();
         String userId = pathInfo.substring(1);
 
-        User user = userService.getUserFromSession(request);
+        User user = userService.checkAndAuthenticateUser(request, response);
 
         String result = userService.deleteUserById(userId);
 

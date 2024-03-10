@@ -41,7 +41,7 @@ public class AddController extends HttpServlet {
         String classHeader = request.getParameter("class-header");
         int totalClass = isClassified ? Integer.parseInt(request.getParameter("total-class")) : 0;
 
-        User user = userService.getUserFromSession(request);
+        User user = userService.checkAndAuthenticateUser(request, response);
         String storeId = user.getId();
 
         String result = productService.processProduct(productName, category, about, isClassified, classHeader, totalClass, parts, request.getParameterMap(), storeId, request);

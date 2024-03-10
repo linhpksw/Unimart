@@ -22,7 +22,7 @@ public class HistoryController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        User user = userService.getUserFromSession(request);
+        User user = userService.checkAndAuthenticateUser(request, response);
         String userId = user.getId();
 
         List<Order> orders = orderService.getOrdersByUserId(userId);

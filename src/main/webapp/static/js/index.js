@@ -15,8 +15,10 @@ document.addEventListener('DOMContentLoaded', () => {
         'home-care.jpg'
     ];
     const categoryListHtml = categoryList.map((c, i) => {
+        const encodedCategory = encodeURIComponent(c);
+        
         return `
-        <a href="#"
+        <a href="${contextPath}/categories?sort=&category=${encodedCategory}"
            class="relative flex flex-col overflow-hidden rounded-lg p-6 hover:opacity-75 w-36 h-40">
             <span aria-hidden="true" class="absolute inset-0">
                 <img src="${contextPath}/static/images/categories/${categoryImage[i]}" alt="${c}"

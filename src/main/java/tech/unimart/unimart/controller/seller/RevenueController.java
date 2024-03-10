@@ -21,7 +21,7 @@ public class RevenueController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        User user = userService.getUserFromSession(request);
+        User user = userService.checkAndAuthenticateUser(request, response);
         String storeId = user.getId();
 
         List<Order> orders = orderService.getOrdersByStoreId(storeId);

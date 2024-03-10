@@ -21,7 +21,7 @@ public class StockController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        User user = userService.getUserFromSession(request);
+        User user = userService.checkAndAuthenticateUser(request, response);
 
         List<ProductDetail> productsStock = productService.getProductsByStoreId(user.getId());
 

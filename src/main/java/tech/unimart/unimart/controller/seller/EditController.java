@@ -66,7 +66,7 @@ public class EditController extends HttpServlet {
         String category = request.getParameter("category");
         String about = request.getParameter("about");
 
-        User user = userService.getUserFromSession(request);
+        User user = userService.checkAndAuthenticateUser(request, response);
         String storeId = user.getId();
 
         // Instead of creating a new product, we update the existing one

@@ -25,6 +25,23 @@ public class ProductDAO {
         this.database = dbContext.getDatabase();
     }
 
+    public List<Product> searchProducts(String searchKeyword) {
+        List<Product> productList = new ArrayList<>();
+        MongoCollection<Document> collection = database.getCollection("Products");
+
+        // Use the text search feature of MongoDB. Ensure you have a text index on the fields you want to search.
+        Bson searchCondition = Filters.text(searchKeyword);
+
+        FindIterable<Document> documents = collection.find(searchCondition);
+
+        for (Document doc : documents) {
+            Product product = documentToProduct(doc);
+            productList.add(product);
+        }
+
+        return productList;
+    }
+    
     public List<ProductDetail> getProductsByStoreId(String storeId) {
         List<ProductDetail> productDetailsList = new ArrayList<>();
         MongoCollection<Document> productCollection = database.getCollection("Products");

@@ -144,11 +144,6 @@ public class UserService {
         response.addCookie(rememberMeCookie);
     }
 
-    public User getUserFromSession(HttpServletRequest request) {
-        HttpSession session = request.getSession(false);
-        return (session != null) ? (User) session.getAttribute("user") : null;
-    }
-
     public String initiatePasswordReset(String credential, HttpServletRequest request) {
         User user = userDAO.findByCredential(credential);
         String userId = user.getId();

@@ -92,7 +92,8 @@ public class AuthenFilter implements Filter {
         roleAccessMap.put("/user/profile", allUserRoles);
         roleAccessMap.put("/cart", allUserRoles);
         roleAccessMap.put("/user/history", allUserRoles);
-        roleAccessMap.put("/order/", allUserRoles); // Assuming pattern matching for wildcard "*"
+        // Assuming pattern matching for wildcard "*"
+        roleAccessMap.put("/order/", allUserRoles);
 
         // Pattern matching logic for dynamic URL parts (like wildcards "*")
         for (Map.Entry<String, List<String>> entry : roleAccessMap.entrySet()) {
@@ -111,7 +112,7 @@ public class AuthenFilter implements Filter {
         }
 
         // No authentication required for these URLs
-        return !(requestURI.startsWith("/product/")
+        return !(requestURI.startsWith("/product")
                 || requestURI.startsWith("/home")
                 || requestURI.startsWith("/categories")
                 || requestURI.startsWith("/login")

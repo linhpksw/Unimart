@@ -17,6 +17,15 @@ import java.util.Map;
 public class ProductService {
     private final ProductDAO productDAO = new ProductDAO();
 
+    public List<Product> searchProducts(String searchKeyword) {
+        try {
+            return productDAO.searchProducts(searchKeyword);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ArrayList<>();
+        }
+    }
+    
     public String deleteProductItem(String productItemId) {
         try {
             // Get product ID before deletion

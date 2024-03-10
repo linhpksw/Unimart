@@ -223,7 +223,7 @@
         
         <div class="mt-4 flex justify-end py-4 px-4 sm:px-6">
             <button type="submit"
-                    class="ml-5 inline-flex justify-center rounded-md border border-transparent bg-sky-700 py-2 px-4 font-medium text-white shadow-sm hover:bg-sky-800 focus:outline-none focus:ring-2 focus:ring-sky-500 focus:ring-offset-2">
+                    class="ml-5 inline-flex justify-center rounded-md border border-transparent bg-violet-700 py-2 px-4 font-medium text-white shadow-sm hover:bg-violet-800 focus:outline-none focus:ring-2 focus:ring-violet-500 focus:ring-offset-2">
                 Save
             </button>
         </div>

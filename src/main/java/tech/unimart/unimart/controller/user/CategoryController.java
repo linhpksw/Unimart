@@ -23,6 +23,7 @@ public class CategoryController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String sort = request.getParameter("sort");
         String categoriesParam = request.getParameter("category");
+        String searchKeyword = request.getParameter("search");
 
         // Decode category parameter and split into a list
         List<String> categories = categoriesParam != null && !categoriesParam.isEmpty()
@@ -31,7 +32,9 @@ public class CategoryController extends HttpServlet {
 
         List<Product> products;
 
-        if ((sort == null || sort.isEmpty()) && (categories.isEmpty() || categories.contains("All categories"))) {
+        if (searchKeyword != null && !searchKeyword.isEmpty()) {
+            products = productService.searchProducts(searchKeyword);
+        } else if ((sort == null || sort.isEmpty()) && (categories.isEmpty() || categories.contains("All categories"))) {
             products = productService.getAllProducts();
         } else {
             products = productService.filterProducts(sort, categories);
