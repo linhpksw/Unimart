@@ -1,0 +1,54 @@
+**** From local ****
+>>>>>>Remember to change in DBContext
+Build Project
+Use maven package for building WAR file
+docker compose build (remember check tomcat version if build error)
+docker compose build --no-cache
+
+Push to hub
+
+**** From remote server ****
+docker pull linhpksw/unimart:1.4
+docker compose down
+docker compose up -d
+
+
+**** Other commands ****
+cd /root/app/unimart
+docker ps -a
+docker images
+docker rmi 0d658b697793
+find / -name DBContext.java
+vim $(find / -name DBContext.java)
+git pull
+
+docker exec -it unimart-mysql mysql -u root -p
+Bmcdc54@
+SHOW DATABASES;
+USE unimartDB;
+SHOW TABLES;
+DESCRIBE users;
+SELECT * FROM users;
+DROP TABLE users;
+DROP TABLE remembers;
+DELETE FROM users WHERE id = 'linhpksw';
+
+UPDATE users SET role = 'admin' WHERE id = 'admin';
+mysql> exit
+
+docker-compose down -v
+docker volume prune
+docker volume prune -f
+docker network prune
+
+
+docker ps
+docker exec -it edfe7c3d3b5c /bin/bash
+
+
+
+**** Server config ****
+103.179.173.132
+22
+root
+1be0D3FG68hKWX55
