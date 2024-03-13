@@ -26,6 +26,9 @@ public class LoginController extends HttpServlet {
         if (isLoginSuccess) {
             response.sendRedirect(request.getContextPath() + "/");
         } else {
+            request.setAttribute("credential", credential);
+            request.setAttribute("password", password);
+            request.setAttribute("remember", remember);
             request.setAttribute("errorMessage", "Invalid credentials");
             request.getRequestDispatcher("/security/login.jsp").forward(request, response);
         }

@@ -5,6 +5,15 @@
 
 <c:set var="contextPath" value="${pageContext.request.contextPath}"/>
 
+<c:set var="user" value="${requestScope.user}"/>
+
+<c:if test="${user != null}">
+    <c:set var="id" value="${user.id}"/>
+    <c:set var="password" value="${user.password}"/>
+    <c:set var="email" value="${user.email}"/>
+    <c:set var="phone" value="${user.phone}"/>
+</c:if>
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -35,6 +44,7 @@
                                            class="block text-sm font-medium text-gray-700">Username</label>
                                     <div class="mt-1">
                                         <input id="id" name="id" type="text" autocomplete="username"
+                                               value="${id}"
                                                required
                                                class="block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm">
                                     </div>
@@ -45,6 +55,7 @@
                                            class="block text-sm font-medium text-gray-700">Email</label>
                                     <div class="mt-1">
                                         <input id="email" name="email" type="email" autocomplete="email"
+                                               value="${email}"
                                                required
                                                class="block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm">
                                     </div>
@@ -57,6 +68,7 @@
                                     <div class="mt-1">
                                         <input id="phone" name="phone" type="text" autocomplete="phone"
                                                required
+                                               value="${phone}"
                                                class="block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm">
                                     </div>
                                 </div>
@@ -66,6 +78,7 @@
                                            class="block text-sm font-medium text-gray-700">Password</label>
                                     <div class="mt-1">
                                         <input id="password" name="password" type="password"
+                                               value="${password}"
                                                autocomplete="current-password" required
                                                class="block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm">
                                     </div>

@@ -5,6 +5,11 @@
 
 <c:set var="contextPath" value="${pageContext.request.contextPath}"/>
 
+<c:set var="credential" value="${requestScope.credential}"/>
+<c:set var="password" value="${requestScope.password}"/>
+<c:set var="remember" value="${requestScope.remember}"/>
+
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -39,6 +44,7 @@
                                     <div class="mt-1">
                                         <input id="credential" name="credential" type="text" autocomplete="email"
                                                required
+                                               value="${credential}"
                                                class="block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm">
                                     </div>
                                 </div>
@@ -49,13 +55,15 @@
                                     <div class="mt-1">
                                         <input id="password" name="password" type="password"
                                                autocomplete="current-password" required
+                                               value="${password}"
                                                class="block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm">
                                     </div>
                                 </div>
                                 
                                 <div class="flex items-center justify-between">
                                     <div class="flex items-center">
-                                        <input id="remember" name="remember" type="checkbox"
+                                        <input id="remember" name="remember"
+                                               type="checkbox" ${remember == 'on' ? 'checked' : ''}
                                                class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500">
                                         <label for="remember" class="ml-2 block text-sm text-gray-900">Remember
                                             me</label>

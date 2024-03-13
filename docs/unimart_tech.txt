@@ -1,0 +1,25 @@
+sudo certbot certonly --standalone -d unimart.tech
+cd /etc/apache2/sites-available
+sudo vim /etc/apache2/sites-available/000-default.conf
+
+sudo systemctl status apache2
+sudo systemctl start apache2
+sudo systemctl restart apache2 (if need)
+
+
+sudo a2enmod rewrite
+<VirtualHost *:80>
+    ServerName unimart.tech
+    ServerAlias www.unimart.tech
+
+    RewriteEngine On
+    RewriteCond %{HTTPS} off
+    RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+    # Other configuration settings...
+</VirtualHost>
+
+sudo apt update
+sudo apt install certbot python3-certbot-apache
+sudo certbot --apache -d unimart.tech -d www.unimart.tech
+

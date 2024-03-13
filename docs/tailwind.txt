@@ -1,0 +1,8 @@
+npx tailwindcss -i ./webapp/static/css/style.css -o ./webapp/static/css/tailwind.css --minify
+
+"build:css": "npx tailwindcss -i ./src/main/webapp/static/css/style.css -o ./src/main/webapp/static/css/tailwind.css --minify",
+
+    "watch:css": "npx tailwindcss -i ./src/main/webapp/static/css/style.css -o ./src/main/webapp/static/css/tailwind.css --minify --watch"
+
+npm run watch:css
+(dark:[^"]+)

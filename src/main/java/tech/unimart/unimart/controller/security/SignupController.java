@@ -27,6 +27,7 @@ public class SignupController extends HttpServlet {
 
         if (!"success".equals(result)) {
             request.setAttribute("errorMessage", result);
+            request.setAttribute("user", user);
             request.getRequestDispatcher("/security/signup.jsp").forward(request, response);
         } else {
             response.sendRedirect(request.getContextPath() + "/login?signup=success");
