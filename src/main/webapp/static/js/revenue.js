@@ -7,8 +7,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const timestampElements = document.querySelectorAll('.time');
     timestampElements.forEach(element => {
-        const timestamp = customDateStringToTimestamp(element.textContent);
-        element.textContent = formatTimestampToVietnameseDate(timestamp);
+        element.textContent = customDateStringToTimestamp(element.textContent);
     });
 });
 
@@ -17,11 +16,15 @@ function formatCurrencyVND(amount) {
 }
 
 function customDateStringToTimestamp(dateString) {
-    // Example input: "Fri Mar 08 13:50:42 ICT 2024"
+    // Example input: "Wed Mar 13 08:23:51 ICT 2024"
+    // Example output: 08:23:51 Thứ Tư, 13/3/2024
     const months = {
         Jan: 0, Feb: 1, Mar: 2, Apr: 3, May: 4, Jun: 5,
         Jul: 6, Aug: 7, Sep: 8, Oct: 9, Nov: 10, Dec: 11
     };
+    const days = ['Chủ Nhật', 'Thứ Hai', 'Thứ Ba', 'Thứ Tư', 'Thứ Năm', 'Thứ Sáu', 'Thứ Bảy'];
+
+    // Split the dateString into components
     const parts = dateString.split(' ');
     const year = parseInt(parts[5], 10);
     const month = months[parts[1]];
@@ -31,26 +34,10 @@ function customDateStringToTimestamp(dateString) {
     const minutes = parseInt(timeParts[1], 10);
     const seconds = parseInt(timeParts[2], 10);
 
-    // Assuming ICT timezone is +7 hours from UTC
-    const date = new Date(Date.UTC(year, month, day, hours, minutes, seconds));
-    // Adjust for the timezone offset
-    date.setHours(date.getHours() + 7);
+    // Create a Date object using the parsed components
+    const date = new Date(year, month, day, hours, minutes, seconds);
 
-    return date.getTime();
-}
-
-function formatTimestampToVietnameseDate(timestamp) {
-    const date = new Date(timestamp);
-    const options = {
-        hour: '2-digit',
-        minute: '2-digit',
-        second: '2-digit',
-        weekday: 'long',
-        day: 'numeric',
-        month: 'numeric',
-        year: 'numeric',
-        hour12: false
-    };
-
-    return new Intl.DateTimeFormat('vi-VN', options).format(date);
+    // Format the date string
+    const weekday = days[date.getDay()];
+    return `${timeParts.join(':')} ${weekday}, ${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`;
 }

@@ -24,6 +24,7 @@ public class ProductController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String pathInfo = request.getPathInfo(); // Gets the requested product ID
 
+
         if (pathInfo == null || pathInfo.equals("/")) {
             // Redirect to categories page if product ID is missing
             response.sendRedirect(request.getContextPath() + "/categories");
@@ -31,22 +32,19 @@ public class ProductController extends HttpServlet {
         }
 
         String productId = pathInfo.substring(1);
+
         ProductDetail productDetail = productService.getProductDetailById(productId);
+        ProductDetail productDetailWithoutDescription = productService.getProductDetailById(productId);
+        productDetailWithoutDescription.getProduct().setDescription("");
 
-        if (productDetail != null) {
-            String productDetailJson = JsonUtil.toJson(productDetail);
-            String productItemsJson = JsonUtil.toJson(productDetail.getProductItems());
+        String productDetailJson = JsonUtil.toJson(productDetailWithoutDescription);
+        String productItemsJson = JsonUtil.toJson(productDetailWithoutDescription.getProductItems());
 
-            request.setAttribute("productDetailJson", productDetailJson);
-            request.setAttribute("productItemsJson", productItemsJson);
+        request.setAttribute("productDetailJson", productDetailJson);
+        request.setAttribute("productItemsJson", productItemsJson);
 
-            request.setAttribute("productDetail", productDetail);
-            request.getRequestDispatcher("/user/product.jsp").forward(request, response);
-        } else {
-            System.out.println("Product not found");
-            request.setAttribute("errorMessage", "Product not found");
-            request.getRequestDispatcher("/user/error.jsp").forward(request, response);
-        }
+        request.setAttribute("productDetail", productDetail);
+        request.getRequestDispatcher("/user/product.jsp").forward(request, response);
     }
 
     @Override

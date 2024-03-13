@@ -11,9 +11,7 @@
 
 <main class="py-6 px-4">
     <div class="mx-auto space-y-4 max-w-full px-0">
-        <h1 class="text-xl font-bold leading-7 text-gray-900">Manage Revenues</h1>
-        <p class="text-sm text-gray-700">A list of all the users in your account including their name, title,
-            email and role.</p>
+        <h1 class="text-2xl font-bold leading-7 text-gray-900">Manage Revenues</h1>
         
         <dl class="grid gap-5 grid-cols-3">
             <div class="relative overflow-hidden rounded-lg px-4 pt-5 mb-5 shadow-lg">
@@ -69,32 +67,41 @@
         </dl>
     </div>
     
-    
     <div id="orders-container" class="mx-auto space-y-8 max-w-full px-0">
+        <c:set var="counter" value="0" scope="page"/> <!-- Initialize counter -->
         <c:forEach var="order" items="${orders}">
             <c:forEach var="item" items="${order.items}">
+                <c:set var="counter" value="${counter + 1}"/> <!-- Increment counter -->
                 <div class="border-gray-200 border shadow-sm rounded-lg">
-                    <div class="border-b border-gray-200 p-4 grid grid-cols-12 gap-x-6">
-                        <dl class="col-span-9 grid grid-cols-12 flex-1 gap-x-6 ">
-                            <div class="col-span-4">
+                    <div class="border-b border-gray-200 p-4 grid grid-cols-12 gap-x-4">
+                        <dl class="col-span-11 grid grid-cols-12 flex-1 gap-x-6 ">
+                            <div class="col-span-1">
+                                <dt class="font-medium text-gray-900">No</dt>
+                                <dd class="mt-1 text-gray-500">${counter}</dd>
+                            </div>
+                            <div class="col-span-2">
                                 <dt class="font-medium text-gray-900">Order number</dt>
                                 <dd class="mt-1 text-gray-500">#${order.orderId}</dd>
                             </div>
-                            <div class="col-span-5">
+                            <div class="col-span-4">
                                 <dt class="font-medium text-gray-900">Date placed</dt>
                                 <dd class="time mt-1 text-gray-500">${order.orderDate}</dd>
                             </div>
-                            <div class="col-span-3">
+                            <div class="col-span-2">
                                 <dt class="font-medium text-gray-900">Total amount</dt>
                                 <dd class="price mt-1 text-gray-500">${order.total}</dd>
                             </div>
+                            <div class="col-span-2">
+                                <dt class="font-medium text-gray-900">Customer</dt>
+                                <dd class="mt-1 text-gray-500">${order.userId}</dd>
+                            </div>
                         </dl>
                         
-                        <div class="col-span-3 flex items-center justify-end">
+                        <div class="col-span-1 flex items-center justify-end">
                             <a href="${contextPath}/order/${order.orderId}">
                                 <button type="button"
                                         class="inline-flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 w-auto">
-                                    View Order Detail
+                                    View
                                 </button>
                             </a>
                         </div>

@@ -67,6 +67,18 @@ document.addEventListener('DOMContentLoaded', () => {
         classHeaderContainer.classList.toggle('hidden', !show);
         totalClassContainer.classList.toggle('hidden', !show);
         isClassifiedInput.value = show ? "true" : "false";
+
+        // // Toggle the 'required' attribute for inputs in the productOnlyContainer
+        // const priceOnlyInput = document.getElementById("price-only");
+        // const quantityOnlyInput = document.getElementById("quantity-only");
+        //
+        // if (show) {
+        //     priceOnlyInput.removeAttribute('required');
+        //     quantityOnlyInput.removeAttribute('required');
+        // } else {
+        //     priceOnlyInput.setAttribute('required', '');
+        //     quantityOnlyInput.setAttribute('required', '');
+        // }
     }
 
     function handleTotalClassificationChange() {
@@ -101,7 +113,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 div.innerHTML = `
                     <label for="product-class-${i}" class="block font-medium leading-6 text-gray-900">Product classification ${i}</label>
                     <div class="mt-2">
-                        <input type="text" name="product-class-${i}" id="product-class-${i}"
+                        <input type="text" required name="product-class-${i}" id="product-class-${i}"
                                class="product-class block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600">
                     </div>`;
                 container.appendChild(div);
@@ -143,16 +155,16 @@ document.addEventListener('DOMContentLoaded', () => {
                 priceCell.innerHTML = `
                 <div class="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600">
                     <span class="flex select-none items-center pl-3 text-gray-500">₫</span>
-                    <input type="text" name="product-price-${i}" id="product-price-${i}"
+                    <input type="text" pattern="\\d*\\.?\\d+" name="product-price-${i}" id="product-price-${i}" min="0"
                            class="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0"
-                           placeholder="">
+                           required>
                 </div>`;
 
                 // Cell for product quantity (third cell)
                 const quantityCell = row.insertCell();
                 quantityCell.className = "px-3 py-2 text-gray-500";
                 quantityCell.innerHTML = `
-                <input type="number" name="product-quantity-${i}" id="product-quantity-${i}"
+                <input type="number" name="product-quantity-${i}" id="product-quantity-${i}" min="0" required
                        class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600">`;
             }
         }

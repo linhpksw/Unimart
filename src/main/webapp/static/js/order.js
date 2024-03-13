@@ -27,7 +27,7 @@ function renderOrderItems(items) {
                             <a href="${contextPath}/product/${item.productId}">${item.productName}</a>
                         </h3>
                         <p class="mt-2 font-medium text-gray-900">${formatCurrencyVND(item.price)}</p>
-                        <p class="mt-3 text-gray-500">Color | Red</p>
+                        <p class="mt-3 text-gray-500">${Object.keys(item.attributes).map(key => `${key} | ${item.attributes[key]}`).join(', ')}</p>
                     </div>
                 </div>
                 
@@ -41,9 +41,7 @@ function renderOrderItems(items) {
                         </div>
                         <div>
                             <dt class="font-medium text-gray-900">Store</dt>
-                            <dd class="mt-3 space-y-3 text-gray-500">
-                                <a href="#">${item.storeId}</a>
-                            </dd>
+                            <dd class="mt-3 space-y-3 text-gray-500">${item.storeId}</dd>
                         </div>
                     </dl>
                 </div>

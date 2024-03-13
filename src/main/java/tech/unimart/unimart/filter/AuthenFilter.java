@@ -118,10 +118,10 @@ public class AuthenFilter implements Filter {
                 || requestURI.startsWith("/login")
                 || requestURI.startsWith("/signup")
                 || requestURI.startsWith("/static")
-                || requestURI.startsWith("/components"))
+                || requestURI.startsWith("/components")
                 || requestURI.startsWith("/reset")
                 || requestURI.startsWith("/forgot")
-                || requestURI.startsWith("/logout");
+                || requestURI.startsWith("/logout"));
     }
 
     /**

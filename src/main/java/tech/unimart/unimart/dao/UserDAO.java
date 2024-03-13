@@ -33,18 +33,12 @@ public class UserDAO extends DBContext {
             while (resultSet.next()) {
                 User user = new User();
                 user.setId(resultSet.getString("id"));
-                user.setAbout(resultSet.getString("about"));
                 user.setEmail(resultSet.getString("email"));
                 user.setPhone(resultSet.getString("phone"));
-                user.setPassword(resultSet.getString("password"));
                 user.setRole(resultSet.getString("role"));
                 user.setName(resultSet.getString("name"));
-                user.setGender(resultSet.getString("gender"));
-                user.setDob(resultSet.getDate("dob").toLocalDate().toString());
-                user.setAddress(resultSet.getString("address"));
-                user.setBanned(resultSet.getBoolean("is_banned"));
                 user.setCreatedAt(resultSet.getTimestamp("created_at").toLocalDateTime().toString());
-                user.setUpdatedAt(resultSet.getTimestamp("updated_at").toLocalDateTime().toString());
+
                 users.add(user);
             }
         } catch (SQLException e) {

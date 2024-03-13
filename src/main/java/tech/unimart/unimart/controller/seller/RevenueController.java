@@ -34,6 +34,8 @@ public class RevenueController extends HttpServlet {
                 for (OrderItem item : order.getItems()) {
                     totalItemsSold += item.getQuantity();
                 }
+
+//                System.out.println(order.getOrderDate());
             }
             int totalOrders = orders.size();
 

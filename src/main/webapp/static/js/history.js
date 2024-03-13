@@ -1,4 +1,4 @@
-console.log(ordersJson)
+console.log('why', ordersJson);
 
 document.addEventListener('DOMContentLoaded', () => {
     const ordersContainer = document.getElementById('orders-container');
@@ -8,7 +8,9 @@ document.addEventListener('DOMContentLoaded', () => {
 function renderOrders(orders, container) {
     container.innerHTML = '';
 
-    orders.forEach(order => {
+    orders.forEach((order, index) => {
+        const items = order.items;
+
         const orderElement = document.createElement('div');
         orderElement.className = 'border-gray-200 border shadow-sm rounded-lg';
 
@@ -17,12 +19,16 @@ function renderOrders(orders, container) {
 
         orderElement.innerHTML = `
             <div class="border-b border-gray-200 p-4 grid grid-cols-12 gap-x-6">
-                <dl class="col-span-9 grid grid-cols-12 flex-1 gap-x-6 ">
-                    <div class="col-span-4">
+                <dl class="col-span-11 grid grid-cols-12 flex-1 gap-x-4 ">
+                    <div class="col-span-1">
+                        <dt class="font-medium text-gray-900">No</dt>
+                        <dd class="mt-1 text-gray-500">${index * 1.0 + 1}</dd>
+                    </div>
+                    <div class="col-span-3">
                         <dt class="font-medium text-gray-900">Order number</dt>
                         <dd class="mt-1 text-gray-500">#${order.orderId}</dd>
                     </div>
-                    <div class="col-span-5">
+                    <div class="col-span-4">
                         <dt class="font-medium text-gray-900">Date placed</dt>
                         <dd class="mt-1 text-gray-500">
                             <time>${formattedDate}</time>
@@ -30,14 +36,18 @@ function renderOrders(orders, container) {
                     </div>
                     <div class="col-span-3">
                         <dt class="font-medium text-gray-900">Total amount</dt>
-                        <dd class="mt-1 font-medium text-gray-900">${formatCurrencyVND(order.total)}</dd>
+                        <dd class="mt-1 text-gray-500">${formatCurrencyVND(order.total)}</dd>
+                    </div>
+                    <div class="col-span-1">
+                        <dt class="font-medium text-gray-900">Store</dt>
+                        <dd class="mt-1 text-gray-500">${items[0].storeId}</dd>
                     </div>
                 </dl>
                 
-                <div class="col-span-3 flex items-center justify-end">
+                <div class="col-span-1 flex items-center justify-end">
                     <a href="${contextPath}/order/${order.orderId}"
-                       class="flex items-center justify-center rounded-md border border-gray-300 bg-white py-2 px-2.5 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
-                        <span>View Order Detail</span>
+                       class="inline-flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-2.5 py-2 font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 w-auto">
+                        <span>View</span>
                     </a>
                 </div>
             </div>

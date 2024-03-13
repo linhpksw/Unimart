@@ -9,9 +9,7 @@
 
 <div class="flex items-center py-6 px-4">
     <div class="flex-auto">
-        <h1 class="text-xl font-bold leading-7 text-gray-900">Manage products</h1>
-        <p class="mt-2 text-sm text-gray-700">A list of all the users in your account including their name, title,
-            email and role.</p>
+        <h1 class="text-2xl font-bold leading-7 text-gray-900">Manage products</h1>
     </div>
     <div class="ml-16">
         <a href="${contextPath}/seller/add">

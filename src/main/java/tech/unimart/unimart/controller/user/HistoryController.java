@@ -27,6 +27,9 @@ public class HistoryController extends HttpServlet {
 
         List<Order> orders = orderService.getOrdersByUserId(userId);
 
+        System.out.println(orders);
+
+
         if (orders != null) {
             String ordersJson = JsonUtil.toJson(orders);
             request.setAttribute("ordersJson", ordersJson);

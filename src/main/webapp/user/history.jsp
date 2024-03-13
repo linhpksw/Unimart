@@ -9,13 +9,11 @@
 
 
 <main class="py-6 px-4">
-    <div class="mx-auto max-w-7xl px-8">
-        <div class="mx-auto max-w-2xl px-0 lg:max-w-4xl">
-            <h1 class="text-2xl font-bold tracking-tight text-gray-900">Order history</h1>
-            <p class="mt-2 text-sm text-gray-500">Check the status of recent orders, manage returns, and
-                discover similar products.</p>
-        </div>
+    
+    <div class="">
+        <h1 class="text-2xl font-bold leading-7 text-gray-900">Order history</h1>
     </div>
+    
     
     <section class="mt-16">
         <div class="mx-auto max-w-7xl sm:px-2 lg:px-8">
