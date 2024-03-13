@@ -29,7 +29,7 @@ public class LoginController extends HttpServlet {
             request.setAttribute("credential", credential);
             request.setAttribute("password", password);
             request.setAttribute("remember", remember);
-            request.setAttribute("errorMessage", "Invalid credentials");
+            request.setAttribute("errorMessage", "Invalid credentials. Please try again!");
             request.getRequestDispatcher("/security/login.jsp").forward(request, response);
         }
     }
@@ -47,7 +47,7 @@ public class LoginController extends HttpServlet {
             // No user session or remember me cookie found, show login page
             String signupSuccess = request.getParameter("signup");
             if ("success".equals(signupSuccess)) {
-                request.setAttribute("successMessage", "Signup successful, please login");
+                request.setAttribute("successMessage", "Signup successful, please login!");
             }
             request.getRequestDispatcher("/security/login.jsp").forward(request, response);
         }

@@ -114,7 +114,7 @@
                                    type="radio"
                                    class="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-500">
                             <label for="male"
-                                   class="ml-3 block medium text-gray-700">Male</label>
+                                   class="ml-3 block text-gray-700">Male</label>
                         </div>
                         
                         <div class="flex items-center">
@@ -122,7 +122,7 @@
                             ${user.gender == 'female' ? 'checked' : ''}
                                    class="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-500">
                             <label for="female"
-                                   class="ml-3 block font-medium text-gray-700">Female</label>
+                                   class="ml-3 block text-gray-700">Female</label>
                         </div>
                         
                         <div class="flex items-center">
@@ -130,7 +130,7 @@
                             ${user.gender == 'other' ? 'checked' : ''}
                                    class="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-500">
                             <label for="other"
-                                   class="ml-3 block font-medium text-gray-700">Other</label>
+                                   class="ml-3 block text-gray-700">Other</label>
                         </div>
                     </div>
                 

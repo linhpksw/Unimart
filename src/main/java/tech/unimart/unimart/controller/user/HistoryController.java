@@ -27,18 +27,14 @@ public class HistoryController extends HttpServlet {
 
         List<Order> orders = orderService.getOrdersByUserId(userId);
 
-        System.out.println(orders);
-
-
         if (orders != null) {
             String ordersJson = JsonUtil.toJson(orders);
             request.setAttribute("ordersJson", ordersJson);
-            request.setAttribute("logicalURI", "/user/history");
-            request.getRequestDispatcher("/user/user.jsp").forward(request, response);
         } else {
-            request.setAttribute("errorMessage", "The requested order does not exist.");
-            request.getRequestDispatcher("/user/error.jsp").forward(request, response);
+            request.setAttribute("errorMessage", "The requested order does not exist!");
         }
+        request.setAttribute("logicalURI", "/user/history");
+        request.getRequestDispatcher("/user/user.jsp").forward(request, response);
     }
 
     @Override

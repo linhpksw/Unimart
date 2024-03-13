@@ -53,8 +53,8 @@ public class CartController extends HttpServlet {
 
         if (orderData == null) {
             // Handle parsing error
-            request.setAttribute("errorMessage", "Invalid cart data.");
-            request.getRequestDispatcher("/user/error.jsp").forward(request, response);
+            request.setAttribute("errorMessage", "Invalid cart data!");
+            request.getRequestDispatcher("/user/cart.jsp").forward(request, response);
         } else {
             CartService cartService = new CartService();
             String validationMessage = cartService.validateCartItemsStock(orderData);

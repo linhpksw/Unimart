@@ -41,7 +41,7 @@ public class ResetController extends HttpServlet {
             response.sendRedirect(request.getContextPath() + "/login");
         } else {
             // Handle password reset failure
-            request.setAttribute("errorMessage", "Failed to reset password");
+            request.setAttribute("errorMessage", "Failed to reset password!");
             request.getRequestDispatcher("/security/reset-password.jsp").forward(request, response);
         }
     }

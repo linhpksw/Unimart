@@ -30,11 +30,11 @@ public class StockController extends HttpServlet {
             request.setAttribute("logicalURI", "/seller/stock");
             String deleteSuccess = request.getParameter("delete");
             if ("success".equals(deleteSuccess)) {
-                request.setAttribute("successMessage", "Product deleted successfully.");
+                request.setAttribute("successMessage", "Product deleted successfully!");
             }
             request.getRequestDispatcher("/user/user.jsp").forward(request, response);
         } else {
-            request.setAttribute("errorMessage", "The requested order does not exist.");
+            request.setAttribute("errorMessage", "The requested order does not exist!");
             request.getRequestDispatcher("/user/error.jsp").forward(request, response);
         }
     }

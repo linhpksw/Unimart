@@ -31,8 +31,8 @@ public class DeleteAccountController extends HttpServlet {
                 response.sendRedirect(request.getContextPath() + "/admin/account");
             }
         } else {
-            request.setAttribute("errorMessage", "Failed to delete user.");
-            request.getRequestDispatcher("/admin/errorPage.jsp").forward(request, response);
+            request.setAttribute("errorMessage", "Failed to delete user!");
+            request.getRequestDispatcher("/admin/account.jsp").forward(request, response);
         }
     }
 

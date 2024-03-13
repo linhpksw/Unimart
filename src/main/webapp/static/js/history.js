@@ -18,29 +18,27 @@ function renderOrders(orders, container) {
         const formattedDate = formatTimestampToVietnameseDate(orderDate);
 
         orderElement.innerHTML = `
-            <div class="border-b border-gray-200 p-4 grid grid-cols-12 gap-x-6">
+            <div class="border-b border-gray-200 p-4 grid grid-cols-12 gap-x-7">
                 <dl class="col-span-11 grid grid-cols-12 flex-1 gap-x-4 ">
                     <div class="col-span-1">
-                        <dt class="font-medium text-gray-900">No</dt>
-                        <dd class="mt-1 text-gray-500">${index * 1.0 + 1}</dd>
+                        <dt class="font-medium text-gray-900 text-center">No</dt>
+                        <dd class="mt-1 text-gray-500 text-center">${index * 1.0 + 1}</dd>
                     </div>
-                    <div class="col-span-3">
+                    <div class="col-span-2">
                         <dt class="font-medium text-gray-900">Order number</dt>
                         <dd class="mt-1 text-gray-500">#${order.orderId}</dd>
                     </div>
                     <div class="col-span-4">
                         <dt class="font-medium text-gray-900">Date placed</dt>
-                        <dd class="mt-1 text-gray-500">
-                            <time>${formattedDate}</time>
-                        </dd>
+                        <dd class="mt-1 text-gray-500">${formattedDate}</dd>
+                    </div>
+                    <div class="col-span-2">
+                        <dt class="font-medium text-gray-900 text-right">Total amount</dt>
+                        <dd class="mt-1 text-gray-500 text-right">${formatCurrencyVND(order.total)}</dd>
                     </div>
                     <div class="col-span-3">
-                        <dt class="font-medium text-gray-900">Total amount</dt>
-                        <dd class="mt-1 text-gray-500">${formatCurrencyVND(order.total)}</dd>
-                    </div>
-                    <div class="col-span-1">
-                        <dt class="font-medium text-gray-900">Store</dt>
-                        <dd class="mt-1 text-gray-500">${items[0].storeId}</dd>
+                        <dt class="font-medium text-gray-900 text-center">Store</dt>
+                        <dd class="mt-1 text-gray-500 text-center">${items[0].storeId}</dd>
                     </div>
                 </dl>
                 

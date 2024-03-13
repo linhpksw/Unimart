@@ -30,6 +30,14 @@ public class ProductController extends HttpServlet {
             response.sendRedirect(request.getContextPath() + "/categories");
             return;
         }
+        String addedToCart = request.getParameter("addedToCart");
+        if ("success".equals(addedToCart)) {
+            request.setAttribute("successMessage", "Product added to cart successfully!");
+        }
+
+        if ("failed".equals(addedToCart)) {
+            request.setAttribute("errorMessage", "Failed to add product to cart!");
+        }
 
         String productId = pathInfo.substring(1);
 
@@ -69,12 +77,11 @@ public class ProductController extends HttpServlet {
             if ("buyNow".equals(action)) {
                 response.sendRedirect(request.getContextPath() + "/cart");
             } else if ("addToCart".equals(action)) {
-                // Stay on product page but possibly show a success message
-                response.sendRedirect(request.getContextPath() + "/product/" + productId);
+                response.sendRedirect(request.getContextPath() + "/product/" + productId + "?addedToCart=success");
             }
         } else {
             // Handle failure to add product
-            response.sendRedirect(request.getContextPath() + "/user/error.jsp?message=Failed to add product");
+            response.sendRedirect(request.getContextPath() + "/product/" + productId + "?addedToCart=failed");
         }
     }
 }

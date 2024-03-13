@@ -25,18 +25,17 @@ public class OrderController extends HttpServlet {
         if (order != null) {
             String orderJson = JsonUtil.toJson(order);
             request.setAttribute("orderJson", orderJson);
+            request.setAttribute("successMessage", "Order created successfully!");
             request.getRequestDispatcher("/user/order.jsp").forward(request, response);
         } else {
-            request.setAttribute("errorMessage", "The requested order does not exist.");
-            request.getRequestDispatcher("/user/error.jsp").forward(request, response);
+            request.setAttribute("errorMessage", "The requested order does not exist!");
+            request.getRequestDispatcher("/user/order.jsp").forward(request, response);
         }
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Order orderData = (Order) request.getAttribute("orderData");
-
-        System.out.println("Order Data: " + orderData);
 
         if (orderData != null) {
             String orderId = UUIDUtil.generateRandomUUID(6);
@@ -47,12 +46,12 @@ public class OrderController extends HttpServlet {
 
             } else {
                 // Handle order creation failure
-                request.setAttribute("errorMessage", "Failed to create the order.");
+                request.setAttribute("errorMessage", "Failed to create the order!");
                 request.getRequestDispatcher("/cart").forward(request, response);
             }
         } else {
             // Handle JSON parsing error or missing order data
-            request.setAttribute("errorMessage", "Invalid order data.");
+            request.setAttribute("errorMessage", "Invalid order data!");
             request.getRequestDispatcher("/cart").forward(request, response);
         }
     }

@@ -25,7 +25,7 @@ public class ProductService {
             return new ArrayList<>();
         }
     }
-    
+
     public String deleteProductItem(String productItemId) {
         try {
             // Get product ID before deletion
@@ -110,7 +110,7 @@ public class ProductService {
             return "success";
         } catch (Exception e) {
             e.printStackTrace();
-            return "Failed to add product: " + e.getMessage();
+            return "Failed to add product: " + e.getMessage() + "!";
         }
     }
 

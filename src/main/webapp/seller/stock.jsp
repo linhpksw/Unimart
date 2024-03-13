@@ -101,7 +101,8 @@
                                            class="text-indigo-600 hover:text-indigo-900">Edit</a>
                                     </td>
                                     <td class="relative whitespace-nowrap py-4 pl-3 pr-6 text-right font-medium">
-                                        <a href="${contextPath}/seller/delete/${productItem.id}"
+                                        <a href="#"
+                                           onclick="confirmDelete('${contextPath}/seller/delete/${productItem.id}'); return false;"
                                            class="text-red-600 hover:text-red-900">Delete</a>
                                     </td>
                                 </tr>
@@ -114,3 +115,11 @@
         </div>
     </div>
 </div>
+
+<script>
+    function confirmDelete(deleteUrl) {
+        if (confirm("Are you sure you want to delete this item?")) {
+            window.location.href = deleteUrl;
+        }
+    }
+</script>

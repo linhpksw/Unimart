@@ -46,7 +46,7 @@ public class ProfileController extends HttpServlet {
         } catch (Exception e) {
             e.printStackTrace();
 
-            request.setAttribute("errorMessage", "An error occurred while updating the profile: " + e.getMessage());
+            request.setAttribute("errorMessage", "An error occurred while updating the profile: " + e.getMessage() + "!");
         } finally {
             // This will execute whether an exception occurred or not
             request.setAttribute("logicalURI", "/user/profile");

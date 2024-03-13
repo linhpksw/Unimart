@@ -19,14 +19,18 @@ public class AccountController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         List<User> users = userService.findAllUsers();
 
-        if (users != null) {
-            request.setAttribute("users", users); // Set users as a request attribute
-            request.setAttribute("logicalURI", "/admin/account");
-            request.getRequestDispatcher("/user/user.jsp").forward(request, response);
-        } else {
-            request.setAttribute("errorMessage", "No users found.");
-            request.getRequestDispatcher("/user/error.jsp").forward(request, response);
+        String deleted = request.getParameter("deleted");
+        if (deleted != null) {
+            request.setAttribute("successMessage", "User deleted successfully!");
         }
+
+        if (users != null) {
+            request.setAttribute("users", users);
+        } else {
+            request.setAttribute("errorMessage", "No users found!");
+        }
+        request.setAttribute("logicalURI", "/admin/account");
+        request.getRequestDispatcher("/user/user.jsp").forward(request, response);
     }
 
     @Override
