@@ -66,44 +66,13 @@
                         <select id="category" name="category" autocomplete="category"
                                 class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6">
                             <option ${product.category == 'Men Clothes' ? 'selected' : ''}>Men Clothes</option>
-                            <option ${product.category == 'Women Clothes' ? 'selected' : ''}>Women Clothes</option>
                             <option ${product.category == 'Mobile & Gadgets' ? 'selected' : ''}>Mobile & Gadgets
                             </option>
-                            <option ${product.category == 'Moms, Kids & Babies' ? 'selected' : ''}>Moms, Kids & Babies
-                            </option>
-                            <option ${product.category == 'Consumer Electronics' ? 'selected' : ''}>Consumer
-                                Electronics
-                            </option>
                             <option ${product.category == 'Home & Living' ? 'selected' : ''}>Home & Living</option>
-                            <option ${product.category == 'Computer & Accessories' ? 'selected' : ''}>Computer &
-                                Accessories
-                            </option>
-                            <option ${product.category == 'Beauty' ? 'selected' : ''}>Beauty</option>
-                            <option ${product.category == 'Cameras' ? 'selected' : ''}>Cameras</option>
-                            <option ${product.category == 'Health' ? 'selected' : ''}>Health</option>
                             <option ${product.category == 'Watches' ? 'selected' : ''}>Watches</option>
-                            <option ${product.category == 'Women Shoes' ? 'selected' : ''}>Women Shoes</option>
-                            <option ${product.category == 'Men Shoes' ? 'selected' : ''}>Men Shoes</option>
-                            <option ${product.category == 'Women Bags' ? 'selected' : ''}>Women Bags</option>
-                            <option ${product.category == 'Home Appliances' ? 'selected' : ''}>Home Appliances</option>
-                            <option ${product.category == 'Fashion Accessories' ? 'selected' : ''}>Fashion Accessories
-                            </option>
-                            <option ${product.category == 'Sport & Outdoor' ? 'selected' : ''}>Sport & Outdoor</option>
                             <option ${product.category == 'Grocery' ? 'selected' : ''}>Grocery</option>
-                            <option ${product.category == 'Automotive' ? 'selected' : ''}>Automotive</option>
-                            <option ${product.category == 'Books & Stationery' ? 'selected' : ''}>Books & Stationery
-                            </option>
-                            <option ${product.category == 'Men Bags' ? 'selected' : ''}>Men Bags</option>
-                            <option ${product.category == 'Kid Fashion' ? 'selected' : ''}>Kid Fashion</option>
-                            <option ${product.category == 'Toys' ? 'selected' : ''}>Toys</option>
                             <option ${product.category == 'Home care' ? 'selected' : ''}>Home care</option>
                             <option ${product.category == 'Pets' ? 'selected' : ''}>Pets</option>
-                            <option ${product.category == 'Tickets, Vouchers & Services' ? 'selected' : ''}>Tickets,
-                                Vouchers & Services
-                            </option>
-                            <option ${product.category == 'Tools & Home Improvement' ? 'selected' : ''}>Tools & Home
-                                Improvement
-                            </option>
                         </select>
                     </div>
                 </div>

@@ -7,13 +7,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 function generateCategories(selectedCategories) {
     const categories = [
-        "All categories", "Men Clothes", "Women Clothes", "Mobile & Gadgets", "Moms, Kids & Babies",
-        "Consumer Electronics", "Home & Living", "Computer & Accessories", "Beauty",
-        "Cameras", "Health", "Watches", "Women Shoes", "Men Shoes", "Women Bags",
-        "Home Appliances", "Fashion Accessories", "Sport & Outdoor", "Grocery",
-        "Automotive", "Books & Stationery", "Men Bags", "Kid Fashion", "Toys",
-        "Home care", "Pets", "Tickets, Vouchers & Services", "Tools & Home Improvement"
-    ];
+        "All categories", "Men Clothes", "Mobile & Gadgets", "Home & Living", "Watches", "Grocery", "Home care", "Pets"];
     const container = document.getElementById('category-container');
     categories.forEach((category, index) => {
         const div = document.createElement('div');

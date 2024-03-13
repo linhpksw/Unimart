@@ -51,32 +51,12 @@
                         <select id="category" name="category" autocomplete="category" required
                                 class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:leading-6">
                             <option>Men Clothes</option>
-                            <option>Women Clothes</option>
                             <option>Mobile & Gadgets</option>
-                            <option>Moms, Kids & Babies</option>
-                            <option>Consumer Electronics</option>
                             <option>Home & Living</option>
-                            <option>Computer & Accessories</option>
-                            <option>Beauty</option>
-                            <option>Cameras</option>
-                            <option>Health</option>
                             <option>Watches</option>
-                            <option>Women Shoes</option>
-                            <option>Men Shoes</option>
-                            <option>Women Bags</option>
-                            <option>Home Appliances</option>
-                            <option>Fashion Accessories</option>
-                            <option>Sport & Outdoor</option>
                             <option>Grocery</option>
-                            <option>Automotive</option>
-                            <option>Books & Stationery</option>
-                            <option>Men Bags</option>
-                            <option>Kid Fashion</option>
-                            <option>Toys</option>
                             <option>Home care</option>
                             <option>Pets</option>
-                            <option>Tickets, Vouchers & Services</option>
-                            <option>Tools & Home Improvement</option>
                         </select>
                     </div>
                 </div>
